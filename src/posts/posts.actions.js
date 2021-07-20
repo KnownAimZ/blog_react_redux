@@ -1,6 +1,7 @@
 import axios from "axios";
 export const SETPOSITION = 'POSTS/SETPOSITION';
 export const GETPOSTS = 'POSTS/GETPOSTS';
+export const CLEARPOSTS = 'POSTS/CLEARPOSTS';
 
 export const setPosition = position => {
     return {
@@ -24,3 +25,10 @@ export const getPostsByUserId = userId => async dispatch => {
         payload: posts.data
     });
 }
+
+
+export const clearPosts = () => {
+    return {
+        type: CLEARPOSTS
+    };    
+};

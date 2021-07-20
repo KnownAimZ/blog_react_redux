@@ -1,5 +1,7 @@
 import axios from "axios";
 export const GETUSERLIST = 'USERS/GETUSERLIST';
+export const FINDSELECTEDUSER ='USERS/FINDSELECTEDUSER'
+export const CLEARSELECTEDUSER = 'USERS/CLEARSELECTEDUSER';
 
 export const getUserList = users => {
     return {
@@ -17,3 +19,19 @@ export const fetchUsers = () => async dispatch => {
         }
     );    
 }
+
+export const findSelectedUser = userId => async dispatch => {
+    const user = await axios.get(`https://nodejs-test-api-blog.herokuapp.com/api/v1/users/${userId}`);
+    dispatch(
+        {
+            type: FINDSELECTEDUSER,
+            payload: user.data
+        }
+    );
+}
+
+export const clearSelectedUser = () => {
+    return {
+        type: CLEARSELECTEDUSER
+    };    
+};

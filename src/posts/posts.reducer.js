@@ -8,9 +8,11 @@ const initialState = {
 export const postsReducer = (state = initialState, action) => {
     switch (action.type) {
         case postActions.SETPOSITION:
-            return {...state, position: action.payload}
+            return {...state, position: action.payload};
         case postActions.GETPOSTS:
-            return {...state, postsList: action.payload}
+            return {...state, postsList: action.payload};
+        case postActions.CLEARPOSTS:
+            return {...state, postsList: []};
         default:
             return state;
     }

@@ -7,7 +7,7 @@ import User from './User.jsx';
 
 const UserList = () => {
     const [usersSearch, setUsersSearch] = React.useState('');
-    const users = useSelector(state=> state.users);
+    const users = useSelector(state=> state.users.allUsers);
     const handleChange = (event) => {
         setUsersSearch(event.target.value);
     };

@@ -3,6 +3,7 @@ import './App.scss';
 import UserList from './users/UserList.jsx';
 import Header from './Header.jsx';
 import PostList from './posts/PostList';
+import UserPage from './users/UserPage';
 
 function App() {
   return (
@@ -10,11 +11,14 @@ function App() {
       <div className="App">
         <Header/>
         <Switch>
-          <Route path="/users">
+          <Route path="/users/:id">
+            <UserPage/>
+          </Route>
+          <Route exact path="/users">
             <UserList />
           </Route>
-          <Route path="/posts">
-            <PostList />
+          <Route exact path="/posts">
+            <PostList title={'Post List'} withControls />
           </Route>
         </Switch>                
       </div>

@@ -6,11 +6,14 @@ import './PostList.scss';
 import Post from './Post.jsx';
 import * as postActions from './posts.actions.js';
 
-const PostList = () => {
+const PostList = ({withControls, title}) => {
     const dispatch = useDispatch();
     const { position, postsList } = useSelector(state => state.posts);
     useEffect(()=>{
-        dispatch(postActions.getPostsByPosition(position));
+        //do only on main page
+        if(withControls) {
+            dispatch(postActions.getPostsByPosition(position));
+        }
     },[position])
     const handleNext = () => {
         if(postsList.length === 10) {
@@ -22,18 +25,27 @@ const PostList = () => {
             dispatch(postActions.setPosition(position - 10));
         }
     }
+    if (!withControls && postsList.length === 0) {
+        return (
+            <>
+                <h2>{title}</h2>
+                <p>This user has no posts...</p>
+            </>
+        );
+    }
     return (
         <>
-            <h2>Post List</h2>
+            <h2>{title}</h2>
             {postsList.map(post => (<Post key={post._id} {...post} />))}
+            { withControls && 
             <div className="post_controls">
                 <Button variant="contained" color="primary" onClick={handlePrev}>
-                    Previos
+                    Previous
                 </Button>
                 <Button variant="contained" color="primary" onClick={handleNext}>
                     Next
                 </Button>              
-            </div>
+            </div> }
         </>
     );
 };
