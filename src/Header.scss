@@ -1,0 +1,23 @@
+.Header {
+    border: 2px solid black;
+    ul {
+        display: flex;
+        flex-direction: row;
+        a {
+            margin-left: 20px;
+            text-decoration: none;
+            &:first-child {
+                margin-left: 0;
+            }
+            li {
+                list-style: none;
+                font-size: 20px;
+                cursor: pointer;
+                &:hover {
+                    font-weight: bold;
+                }
+            }
+        }
+       
+    }
+}

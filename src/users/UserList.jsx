@@ -1,13 +1,9 @@
-import './UserList.scss';
-import User from './User.jsx';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
-import React from 'react';
-
-
-import * as userActions from './users.action.js';
-import { useMemo } from 'react';
+import './UserList.scss';
+import * as userActions from './users.actions.js';
+import User from './User.jsx';
 
 const UserList = () => {
     const [usersSearch, setUsersSearch] = React.useState('');
@@ -19,7 +15,6 @@ const UserList = () => {
     useEffect(()=>{
         dispatch(userActions.fetchUsers());
     }, []);
-
     return (
         <>
         <h2>User List</h2>
@@ -29,7 +24,7 @@ const UserList = () => {
           onChange={handleChange}
           variant="outlined"
         />        
-        {useMemo(()=> users.filter(user => user['email'].includes(usersSearch)).map(user => (<User key={user._id} {...user} />))) }
+        {users.filter(user => user['email'].includes(usersSearch)).map(user => (<User key={user._id} {...user} />)) }
         </>
     );
 }; 
