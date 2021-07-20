@@ -1,11 +1,19 @@
 .Header {
     border: 2px solid black;
+    background-color: lightblue;
     ul {
         display: flex;
         flex-direction: row;
         a {
             margin-left: 20px;
             text-decoration: none;
+            color: black;
+            &:active {
+                color: black;
+            }
+            &:focus {
+                color: black;
+            }
             &:first-child {
                 margin-left: 0;
             }
