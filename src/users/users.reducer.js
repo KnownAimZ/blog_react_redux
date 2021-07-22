@@ -15,8 +15,13 @@ export const usersReducer = (state = initialState, action) => {
         case userActions.CLEARSELECTEDUSER:
             return {...state, choosedUser: null};
         case userActions.GETUSERBYTOKEN:
-            console.log(123);
             return {...state, myUser: action.payload};
+        case userActions.CLEARMYUSER:
+            return {...state, myUser: null};
+        case userActions.CHANGENAME:
+            return {...state, myUser: action.payload}
+        case userActions.CHANGEAVATAR:
+            return {...state, myUser: action.payload}
         default:
             return state;
     }
