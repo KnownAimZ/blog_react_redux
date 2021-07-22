@@ -4,6 +4,9 @@ import UserList from './users/UserList.jsx';
 import Header from './Header.jsx';
 import PostList from './posts/PostList';
 import UserPage from './users/UserPage';
+import Login from './auth/Login';
+import Register from './auth/Register';
+import MyPage from './users/MyPage';
 
 function App() {
   return (
@@ -19,6 +22,15 @@ function App() {
           </Route>
           <Route exact path="/posts">
             <PostList title={'Post List'} withControls />
+          </Route>
+          <Route exact path="/login">
+            <Login/>
+          </Route>
+          <Route exact path="/register">
+            <Register/>
+          </Route>
+          <Route exact path="/lc">
+            <MyPage />
           </Route>
         </Switch>                
       </div>

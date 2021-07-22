@@ -1,25 +1,37 @@
 import React, {useEffect} from 'react';
-import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import * as userActions from './users.actions.js';
 import * as postActions from '../posts/posts.actions.js';
 import PostList from '../posts/PostList.jsx';
-import './UserPage.scss';
 import { Avatar } from '@material-ui/core';
 
-const UserPage = () => {
-    const {id} = useParams();
+const MyPage = () => {
+    const token = useSelector(state => state.auth.token);
+
     const dispatch = useDispatch();
-    const currentUser = useSelector(state => state.users.choosedUser);
+    const currentUser = useSelector(state => state.users.myUser);
     // const posts = useSelector(state => state.posts.postsList);
+
     useEffect(()=>{
-        dispatch(userActions.findSelectedUser(id));
-        dispatch(postActions.getPostsByUserId(id));
+        if(token) {
+            dispatch(userActions.getUserByToken(token));                      
+        } 
         return ()=> {
-            dispatch(userActions.clearSelectedUser());
             dispatch(postActions.clearPosts());
         }
     },[]);
+
+    useEffect(()=>{
+        if (currentUser) {
+            dispatch(postActions.getPostsByUserId(currentUser.id));
+        }
+    },[currentUser])
+    
+    if(token === null) {
+        return (
+            <h2>You are not logged in...</h2>
+        );
+    }    
     if (currentUser === null) return (<p>Loading</p>);
     return (
     <div>        
@@ -33,4 +45,4 @@ const UserPage = () => {
     </div>);
 }
 
-export default UserPage;
+export default MyPage;

@@ -2,6 +2,7 @@ import axios from "axios";
 export const GETUSERLIST = 'USERS/GETUSERLIST';
 export const FINDSELECTEDUSER ='USERS/FINDSELECTEDUSER'
 export const CLEARSELECTEDUSER = 'USERS/CLEARSELECTEDUSER';
+export const GETUSERBYTOKEN = 'USERS/GETUSERBYTOKEN';
 
 export const getUserList = users => {
     return {
@@ -35,3 +36,14 @@ export const clearSelectedUser = () => {
         type: CLEARSELECTEDUSER
     };    
 };
+
+export const getUserByToken = token => async dispatch => {
+    const response = await axios.get('https://nodejs-test-api-blog.herokuapp.com/api/v1/auth/user',{
+        headers: { Authorization: `Bearer ${token}` }
+    });
+    console.log(response);
+    dispatch ({
+        type: GETUSERBYTOKEN,
+        payload: response.data
+    });
+}
