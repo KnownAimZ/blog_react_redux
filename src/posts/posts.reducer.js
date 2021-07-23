@@ -2,7 +2,8 @@
 
 const initialState = {
     position: 0,
-    postsList: []
+    postsList: [],
+    choosedPost: null
 };
 
 export const postsReducer = (state = initialState, action) => {
@@ -16,6 +17,8 @@ export const postsReducer = (state = initialState, action) => {
         case postActions.CREATEPOST:
             alert('Post created!');
             return {...state}
+        case postActions.GETPOSTBYID:
+            return {...state, choosedPost: action.payload};
         default:
             return state;
     }
