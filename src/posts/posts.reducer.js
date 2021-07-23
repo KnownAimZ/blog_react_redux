@@ -13,6 +13,9 @@ export const postsReducer = (state = initialState, action) => {
             return {...state, postsList: action.payload};
         case postActions.CLEARPOSTS:
             return {...state, postsList: []};
+        case postActions.CREATEPOST:
+            alert('Post created!');
+            return {...state}
         default:
             return state;
     }

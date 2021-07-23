@@ -1,6 +1,7 @@
 .Header {
     border: 2px solid black;
     background-color: lightblue;
+    padding-right: 40px;
     ul {
         display: flex;
         flex-direction: row;
@@ -21,6 +22,8 @@
                 list-style: none;
                 font-size: 20px;
                 cursor: pointer;
+                display: flex;
+                align-items: center;
                 &:hover {
                     font-weight: bold;
                 }

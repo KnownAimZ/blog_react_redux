@@ -7,6 +7,7 @@ import UserPage from './users/UserPage';
 import Login from './auth/Login';
 import Register from './auth/Register';
 import MyPage from './users/MyPage';
+import PostCreator from './posts/PostCreator';
 
 function App() {
   return (
@@ -31,6 +32,9 @@ function App() {
           </Route>
           <Route exact path="/lc">
             <MyPage />
+          </Route>
+          <Route exact path="/postcreate">
+            <PostCreator />
           </Route>
         </Switch>                
       </div>

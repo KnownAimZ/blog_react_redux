@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import { useDispatch } from 'react-redux';
 import { TextField, Button } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
 import * as authActions from './auth.actions.js';
 
 const Register = () => {
@@ -8,9 +9,12 @@ const Register = () => {
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const dispatch = useDispatch();
-    const handleRegister = () => {
+    const history = useHistory();
+
+    const handleRegister = async() => {
         if(email.includes('@') && password.length > 4 && name!== '') {
-            dispatch(authActions.createUser(email, password, name));
+            await dispatch(authActions.createUser(email, password, name));
+            history.push('/login');
         }
         else {
             alert('Error!');
@@ -40,11 +44,10 @@ const Register = () => {
             onChange={(e=>setPassword(e.target.value))}
             type="password"
             variant="outlined"
-            />
+            />            
             <Button variant="contained" color="primary" onClick={handleRegister} style={{width: '100%'}}>
                 Register
             </Button>
-            {/* Link here */}
         </div>
     );
 };

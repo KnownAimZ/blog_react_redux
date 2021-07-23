@@ -38,12 +38,12 @@ export const authLogin = (email, password) => async dispatch => {
 
 export const createUser = (email, password, name) => async dispatch => {
     try {
-        const response = await axios.post(`https://nodejs-test-api-blog.herokuapp.com/api/v1/users`, {
+        await axios.post(`https://nodejs-test-api-blog.herokuapp.com/api/v1/users`, {
             email,
             password,
             name
         });
-        console.log(response);
+        // console.log(response);
         alert('User created');
         dispatch({
             type: CREATEUSER,       

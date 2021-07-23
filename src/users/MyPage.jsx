@@ -5,6 +5,7 @@ import * as postActions from '../posts/posts.actions.js';
 import * as authActions from '../auth/auth.actions.js'
 import PostList from '../posts/PostList.jsx';
 import { Avatar, Button } from '@material-ui/core';
+import {Link} from 'react-router-dom';
 
 const MyPage = () => {
     const token = useSelector(state => state.auth.token);
@@ -29,6 +30,11 @@ const MyPage = () => {
         const formData = new FormData();
         formData.append('avatar', target.files[0]);
         dispatch(userActions.changeAvatar(currentUser._id, token, formData));
+    }
+
+    const handleLogout = () => {
+        dispatch(userActions.clearMyUser());
+        dispatch(authActions.authLogout());
     }
 
     useEffect(()=>{
@@ -61,7 +67,7 @@ const MyPage = () => {
             <h2>{currentUser.name}</h2>
             <p>{currentUser.email}</p>
             <p>{currentUser.dateCreated}</p>
-            <Button variant="contained" color="primary" onClick={handleDeleteUser}>
+            <Button variant="contained" color="secondary" onClick={handleDeleteUser}>
                 Delete my account
             </Button>
             <Button variant="contained" color="primary" onClick={handleChangeName} style={{marginTop: '5px', marginBottom: '5px'}}>
@@ -80,6 +86,14 @@ const MyPage = () => {
                 onChange={handleImageChange} 
                 hidden
             />
+            </Button>
+            <Link to="/postcreate" style={{textDecoration: 'none'}}>
+                <Button variant="contained" color="primary" style={{marginTop: '5px', marginBottom: '5px'}}>
+                    Create new post
+                </Button>
+            </Link>
+            <Button variant="contained" color="secondary" onClick={handleLogout}>
+                Logout
             </Button>
         </div>
         <PostList title={`${currentUser.name}'s posts`} />        
