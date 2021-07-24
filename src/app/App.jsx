@@ -47,6 +47,9 @@ function App() {
           <Route path="/postcreate">
             <PostCreator />
           </Route>
+          <Route exact path="/index.html">
+              <Redirect to="/login" />
+          </Route> 
         </Switch>   
         </div>             
       </div>
