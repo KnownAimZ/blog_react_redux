@@ -42,19 +42,21 @@ const PostList = ({withControls, title}) => {
         );
     }
     return (
-        <>
-            <h2>{title}</h2>
-            {postsList.map(post => (<Post key={post._id} {...post} />))}
-            { withControls && 
-            <div className="post_controls">
-                <Button variant="contained" color="primary" onClick={handlePrev}>
-                    Previous
-                </Button>
-                <Button variant="contained" color="primary" onClick={handleNext}>
-                    Next
-                </Button>              
-            </div> }
-        </>
+        <div className="Page">
+            <div className="PostList">
+                <h2>{title}</h2>
+                {postsList.map(post => (<Post key={post._id} {...post} />))}
+                { withControls && 
+                <div className="post_controls">
+                    <Button variant="contained" color="primary" onClick={handlePrev}>
+                        Previous
+                    </Button>
+                    <Button variant="contained" color="primary" onClick={handleNext}>
+                        Next
+                    </Button>              
+                </div> }
+            </div>            
+        </div>
     );
 };
 

@@ -19,16 +19,19 @@ const UserList = () => {
     };
 
     return (
-         <>
-        <h2>User List</h2>
-        <TextField          
-          label="Email"
-          value={usersSearch}
-          onChange={handleChange}
-          variant="outlined"
-        />
-        {users.filter(user => user['email'].includes(usersSearch)).map(user => (<User key={user._id} {...user} />)) }
-        </>
+        <div className="Page">
+            <div className="UserList">
+                <h2>User List</h2>
+                <TextField          
+                label="Email"
+                value={usersSearch}
+                onChange={handleChange}
+                variant="outlined"
+                />
+                {users.filter(user => user['email'].includes(usersSearch)).map(user => (<User key={user._id} {...user} />)) }
+                </div>
+            </div>
+        
     );
 }; 
 
