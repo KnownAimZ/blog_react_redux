@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 import './App.scss';
 import UserList from './users/UserList.jsx';
 import Header from './Header.jsx';
@@ -15,14 +15,21 @@ function App() {
     <Router>
       <div className="App">
         <Header/>
+        <div className="content">
         <Switch>
+          <Route exact path="/">
+              <Redirect to="/login" />
+          </Route>  
           <Route path="/users/:id">
             <UserPage/>
           </Route>
           <Route path="/posts/:id">
             <PostPage />
           </Route>
-          <Route exact path="/users">
+          <Route path="/postcreate/:id">
+            <PostCreator />
+          </Route>
+          <Route path="/users">
             <UserList />
           </Route>
           <Route exact path="/posts">
@@ -36,11 +43,12 @@ function App() {
           </Route>
           <Route exact path="/lc">
             <MyPage />
-          </Route>
-          <Route exact path="/postcreate">
+          </Route>          
+          <Route path="/postcreate">
             <PostCreator />
           </Route>
-        </Switch>                
+        </Switch>   
+        </div>             
       </div>
     </Router>
   );

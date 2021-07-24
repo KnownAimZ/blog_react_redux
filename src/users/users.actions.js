@@ -26,13 +26,18 @@ export const fetchUsers = () => async dispatch => {
 };
 
 export const findSelectedUser = userId => async dispatch => {
-    const user = await axios.get(`https://nodejs-test-api-blog.herokuapp.com/api/v1/users/${userId}`);
-    dispatch(
-        {
-            type: FINDSELECTEDUSER,
-            payload: user.data
-        }
-    );
+    try {
+        const user = await axios.get(`https://nodejs-test-api-blog.herokuapp.com/api/v1/users/${userId}`);
+        dispatch(
+            {
+                type: FINDSELECTEDUSER,
+                payload: user.data
+            }
+        );
+    }
+    catch (err) {
+        console.log(err);
+    }
 };
 
 export const clearSelectedUser = () => {
@@ -75,7 +80,7 @@ export const changeName = (id, token, name) => async dispatch => {
         {
             headers: { Authorization: `Bearer ${token}` },           
         });
-        console.log(response);
+        // console.log(response);
         dispatch ({
             type: CHANGENAME,
             payload: response.data,
@@ -97,7 +102,7 @@ export const changeAvatar = (id, token, formData) => async dispatch => {
                 // "Access-Control-Allow-Origin": "*", 
             },           
         });
-        console.log(response);
+        // console.log(response);
         dispatch ({
             type: CHANGEAVATAR,
             payload: response.data,

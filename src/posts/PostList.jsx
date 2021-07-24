@@ -9,12 +9,20 @@ import * as postActions from './posts.actions.js';
 const PostList = ({withControls, title}) => {
     const dispatch = useDispatch();
     const { position, postsList } = useSelector(state => state.posts);
+    
     useEffect(()=>{
         //do only on main page
         if(withControls) {
             dispatch(postActions.getPostsByPosition(position));
         }
-    },[position])
+    },[position]);
+
+    useEffect(()=> {
+        return ()=> {
+            dispatch(postActions.clearPosts());
+        }
+    },[]);
+
     const handleNext = () => {
         if(postsList.length === 10) {
             dispatch(postActions.setPosition(position + 10));

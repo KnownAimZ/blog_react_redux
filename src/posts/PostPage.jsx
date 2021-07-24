@@ -5,7 +5,8 @@ import * as postActions from './posts.actions.js';
 import * as userActions from '../users/users.actions.js';
 import User from '../users/User.jsx'
 import { Button } from '@material-ui/core';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
+import './PostPage.scss';
 
 const PostPage = () => {
     const {id} = useParams();
@@ -18,6 +19,10 @@ const PostPage = () => {
 
     useEffect(()=> {
         dispatch(postActions.getPostById(id));
+        return ()=> {
+            dispatch(userActions.clearSelectedUser());
+            dispatch(postActions.clearSelectedPost());
+        }
     }, []);
 
     useEffect(()=> {
@@ -32,9 +37,19 @@ const PostPage = () => {
         history.goBack();
     }
 
+    // const handleUpdatePost = () => {
+    //     history.push(`/postcreate/${id}`);
+    // }
+
     const handleLikePost = async() => {
         await dispatch(postActions.likePost(token, postData._id));
         await dispatch(postActions.getPostById(id));
+    }
+
+    const handleImageChange = ({target}) => {
+        const formData = new FormData();
+        formData.append('image', target.files[0]);
+        dispatch(postActions.changeImage(postData._id, token, formData));
     }
 
     if (postData === null) {
@@ -43,7 +58,8 @@ const PostPage = () => {
         );
     }
     return (
-        <div className="PostPage">
+        <div className="Page">
+            <div className="PostBlock">
             <h2>{postData.title}</h2>
             <h4>{postData.description}</h4>
             <p>{postData.fullText}</p>
@@ -57,12 +73,34 @@ const PostPage = () => {
                             Like this post
                     </Button>
                     {  myUser !== null && myUser._id === postData.postedBy &&
-                        <Button variant="contained" color="secondary" onClick={handleDeletePost}>
-                            Delete post
+                    <>
+                        <Button variant="contained" color="secondary" onClick={handleDeletePost} style={{marginLeft:'10px'}}>
+                                Delete post
                         </Button>
+                        <Link to={`/postcreate/${id}`} style={{textDecoration:'none'}}>
+                            <Button variant="contained" color="primary" style={{marginLeft:'10px'}}>
+                                    Update post
+                            </Button>
+                        </Link>                        
+                        <Button
+                            variant="contained"
+                            component="label"
+                            color="primary"
+                            style={{marginLeft:'10px'}}
+                        >
+                            Change Post Image
+                            <input
+                                type="file"
+                                accept="image/png, image/gif, image/jpeg"
+                                onChange={handleImageChange} 
+                                hidden
+                            />
+                        </Button>
+                    </>                        
                     }
                 </div>
             }
+            </div>          
         </div>
         
     );

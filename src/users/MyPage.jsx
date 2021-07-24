@@ -5,12 +5,13 @@ import * as postActions from '../posts/posts.actions.js';
 import * as authActions from '../auth/auth.actions.js'
 import PostList from '../posts/PostList.jsx';
 import { Avatar, Button } from '@material-ui/core';
-import {Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 
 const MyPage = () => {
     const token = useSelector(state => state.auth.token);
     const dispatch = useDispatch();
     const currentUser = useSelector(state => state.users.myUser);
+    const history = useHistory();
 
     const handleDeleteUser = () => {
         dispatch(userActions.deleteUser(currentUser._id, token));
@@ -35,6 +36,7 @@ const MyPage = () => {
     const handleLogout = () => {
         dispatch(userActions.clearMyUser());
         dispatch(authActions.authLogout());
+        history.push('/login');
     }
 
     useEffect(()=>{
@@ -61,7 +63,9 @@ const MyPage = () => {
     if (currentUser === null) return (<p>Loading</p>);
     
     return (
-    <div>        
+          
+        <div className="Page">
+        <div className="userBlock">
         <div className='userInfo'>
             <Avatar src={currentUser.avatar} variant="rounded" style = {{width: '100px', height: '100px'}}/>
             <h2>{currentUser.name}</h2>
@@ -96,8 +100,9 @@ const MyPage = () => {
                 Logout
             </Button>
         </div>
-        <PostList title={`${currentUser.name}'s posts`} />        
-    </div>);
+        <PostList title={`${currentUser.name}'s posts`} />
+        </div> 
+        </div>);
 }
 
 export default MyPage;

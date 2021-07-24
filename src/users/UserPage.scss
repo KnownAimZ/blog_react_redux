@@ -1,3 +1,19 @@
+.userPage {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.userBlock {
+    max-width: 700px;
+    border: 3px solid #000000;
+    padding: 10px;
+    background-color: aliceblue;
+    width: 100%;
+}
+
 .userInfo {
     width: 100%;
     display: flex;

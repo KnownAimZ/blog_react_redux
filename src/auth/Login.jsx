@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { TextField, Button } from '@material-ui/core';
 import * as authActions from './auth.actions.js';
@@ -26,26 +26,31 @@ const Login = () => {
         }
     }
     return (
-        <div className="Login">
-            <h2>Login</h2>
-            <TextField
-            required          
-            label="Email"
-            value={email}
-            onChange={handleEmail}
-            variant="outlined"
-            />
-            <TextField
-            required          
-            label="Password"
-            value={password}
-            onChange={handlePassword}
-            type="password"
-            variant="outlined"
-            />
-            <Button variant="contained" color="primary" onClick={handleLogin} style={{width: '100%'}}>
-                Login
-            </Button>
+        <div className="Page">
+                <div className="Login">
+                    <h2>Login</h2>
+                    <TextField
+                    required          
+                    label="Email"
+                    value={email}
+                    onChange={handleEmail}
+                    variant="outlined"
+                    />
+                    <TextField
+                    required          
+                    label="Password"
+                    value={password}
+                    onChange={handlePassword}
+                    type="password"
+                    variant="outlined"
+                    />
+                    <Button variant="contained" color="primary" onClick={handleLogin} style={{width: '100%'}}>
+                        Login
+                    </Button>
+                    <Link to="/register" style={{textDecoration: 'none'}}>
+                        <p style={{textAlign:'center', color:'blue'}}>I want to register</p>                        
+                    </Link>
+                </div>
         </div>
     );
 };

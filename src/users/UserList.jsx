@@ -16,14 +16,17 @@ const UserList = () => {
         dispatch(userActions.fetchUsers());
     }, []);
     return (
-        <>
+         <>
         <h2>User List</h2>
         <TextField          
           label="Email"
           value={usersSearch}
           onChange={handleChange}
           variant="outlined"
-        />        
+        />
+        {/* {!users && 
+            <p>Loading...</p>
+        }         */}
         {users.filter(user => user['email'].includes(usersSearch)).map(user => (<User key={user._id} {...user} />)) }
         </>
     );
