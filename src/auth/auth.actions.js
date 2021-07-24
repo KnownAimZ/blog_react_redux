@@ -38,15 +38,27 @@ export const authLogin = (email, password) => async dispatch => {
 
 export const createUser = (email, password, name) => async dispatch => {
     try {
-        await axios.post(`https://nodejs-test-api-blog.herokuapp.com/api/v1/users`, {
+        const response = await axios.post(`https://nodejs-test-api-blog.herokuapp.com/api/v1/users`, {
             email,
             password,
             name
-        });
+        })
+        .catch(function (error) {
+            if (error.response) {
+                const err = error.response.data.error;
+                if (Array.isArray(err)) {
+                    error.response.data.error.forEach(err => alert(err.message));            
+                }
+                else {
+                    alert(err);
+                }
+            }
+        });  
         // console.log(response);
         // alert('User created');
         dispatch({
-            type: CREATEUSER,       
+            type: CREATEUSER,
+            payload: response.data     
         });
     }
     catch (err){

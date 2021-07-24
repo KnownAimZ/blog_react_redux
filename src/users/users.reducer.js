@@ -1,4 +1,5 @@
 import * as userActions from './users.actions.js';
+import { CREATEUSER } from '../auth/auth.actions.js';
 
 const initialState = {
     allUsers: [],
@@ -21,6 +22,8 @@ export const usersReducer = (state = initialState, action) => {
         case userActions.CHANGENAME:
             return {...state, myUser: action.payload}
         case userActions.CHANGEAVATAR:
+            return {...state, myUser: action.payload}
+        case CREATEUSER:
             return {...state, myUser: action.payload}
         default:
             return state;

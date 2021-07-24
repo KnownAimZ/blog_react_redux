@@ -1,11 +1,12 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import {Link} from 'react-router-dom';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import './Header.scss';
 
 const Header = () => {
     const token = useSelector(state => state.auth.token);
+    
     return (
         <div className="Header">
             <ul>

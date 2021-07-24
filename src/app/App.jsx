@@ -1,14 +1,14 @@
 import { BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
-import './App.scss';
-import UserList from './users/UserList.jsx';
+import UserList from '../users/UserList.jsx';
 import Header from './Header.jsx';
-import PostList from './posts/PostList';
-import UserPage from './users/UserPage';
-import Login from './auth/Login';
-import Register from './auth/Register';
-import MyPage from './users/MyPage';
-import PostCreator from './posts/PostCreator';
-import PostPage from './posts/PostPage';
+import PostList from '../posts/PostList';
+import UserPage from '../users/UserPage';
+import Login from '../auth/Login';
+import Register from '../auth/Register';
+import MyPage from '../users/MyPage';
+import PostCreator from '../posts/PostCreator';
+import PostPage from '../posts/PostPage';
+import './App.scss';
 
 function App() {
   return (

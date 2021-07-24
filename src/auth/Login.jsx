@@ -1,15 +1,23 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import { TextField, Button } from '@material-ui/core';
 import * as authActions from './auth.actions.js';
 import './Login.scss';
 
 const Login = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
     const dispatch = useDispatch();
     let history = useHistory();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const token = useSelector(state => state.auth.token);
+
+    useEffect(()=>{
+        if(token) {
+            history.push('/lc');
+        }
+    },[token]);
+
     const handleEmail = (event) => {
         setEmail(event.target.value);
     };
@@ -18,13 +26,13 @@ const Login = () => {
     };
     const handleLogin = async() => {
         if(email.includes('@') && password.length > 4) {
-            await dispatch(authActions.authLogin(email, password));
-            history.push('/lc');
+            await dispatch(authActions.authLogin(email, password));            
         }
         else {
             alert('Error!');
         }
-    }
+    };
+
     return (
         <div className="Page">
                 <div className="Login">

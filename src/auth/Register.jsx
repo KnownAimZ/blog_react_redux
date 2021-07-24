@@ -1,26 +1,34 @@
-import React, {useState} from 'react';
-import { useDispatch } from 'react-redux';
-import { TextField, Button } from '@material-ui/core';
+import React, {useState, useEffect} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, Link } from 'react-router-dom';
+import { TextField, Button } from '@material-ui/core';
 import * as authActions from './auth.actions.js';
 import './Register.scss';
 
 const Register = () => {
+    const dispatch = useDispatch();
+    const history = useHistory();
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
-    const dispatch = useDispatch();
-    const history = useHistory();
+    const myUser = useSelector(state => state.users.myUser);
+    
+    useEffect(()=>{
+        if(myUser) {
+            history.push('/login');
+        }
+    },[myUser]);
 
     const handleRegister = async() => {
         if(email.includes('@') && password.length > 4 && name!== '') {
             await dispatch(authActions.createUser(email, password, name));
-            history.push('/login');
+            
         }
         else {
             alert('Error!');
         }
     }
+
     return (
         <div className="Page">
             <div className="Register">

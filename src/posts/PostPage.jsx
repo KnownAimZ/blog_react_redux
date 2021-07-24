@@ -1,21 +1,21 @@
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux'; 
+import { useParams } from 'react-router';
+import { useHistory, Link } from 'react-router-dom';
+import { Button } from '@material-ui/core';
 import * as postActions from './posts.actions.js';
 import * as userActions from '../users/users.actions.js';
 import User from '../users/User.jsx'
-import { Button } from '@material-ui/core';
-import { useHistory, Link } from 'react-router-dom';
 import './PostPage.scss';
 
 const PostPage = () => {
-    const {id} = useParams();
+    const history = useHistory();
     const dispatch = useDispatch();
+    const {id} = useParams();
     const postData = useSelector(state => state.posts.choosedPost);
     const postedBy = useSelector(state => state.users.choosedUser);
     const myUser = useSelector(state => state.users.myUser);
     const token = useSelector(state => state.auth.token);
-    const history = useHistory();
 
     useEffect(()=> {
         dispatch(postActions.getPostById(id));
@@ -36,10 +36,6 @@ const PostPage = () => {
         await dispatch(postActions.deletePost(token, postData._id));
         history.goBack();
     }
-
-    // const handleUpdatePost = () => {
-    //     history.push(`/postcreate/${id}`);
-    // }
 
     const handleLikePost = async() => {
         await dispatch(postActions.likePost(token, postData._id));

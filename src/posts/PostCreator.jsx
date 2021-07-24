@@ -13,12 +13,19 @@ const PostCreator = () => {
     const [description, setDescription] = useState('');
     const history = useHistory();
     const {id} = useParams();
-
-    // console.log(id);
-
     const token = useSelector(state => state.auth.token);
-
     const post = useSelector(state => state.posts.choosedPost);
+
+    useEffect(()=> {
+        if(id) {
+            const updateFields = async () => {
+                setTitle(post.title);
+                setFullText(post.fullText);
+                setDescription(post.description);
+            }
+            updateFields();
+        }
+    },[id]);
 
     const handlePostCreate = async() => {
         if (title !== '' && fullText !== '' && description !== '' && fullText.length >= 20 && title.length >= 5) {
@@ -33,7 +40,7 @@ const PostCreator = () => {
     const handlePostUpdate = async() => {
         if (title !== '' && fullText !== '' && description !== '' && fullText.length >= 20 && title.length >= 5) {
             await dispatch(postActions.updatePost(token, id, title, fullText, description));
-            alert('Post updated');
+            // alert('Post updated');
             history.goBack();
             // history.push('/lc');
         }
@@ -45,18 +52,6 @@ const PostCreator = () => {
     const handleCancel = () => {
         history.goBack();
     }
-
-    useEffect(()=> {
-        if(id) {
-            const updateFields = async () => {
-                // await dispatch(postActions.getPostById(id));
-                setTitle(post.title);
-                setFullText(post.fullText);
-                setDescription(post.description);
-            }
-            updateFields();
-        }
-    },[id]);
 
     if (!token) {
         return (<h2>You need login to create new posts</h2>);
