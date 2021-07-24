@@ -6,5 +6,13 @@ a.User {
     }
     &:active {
         color:black;
+    }    
+}
+
+.User {
+    >div {
+        &:hover {
+            border-color: black;
+        }
     }
 }
