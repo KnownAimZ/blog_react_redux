@@ -19,13 +19,15 @@ const Register = () => {
         }
     },[myUser]);
 
-    const handleRegister = async() => {
-        if(email.includes('@') && password.length > 4 && name!== '') {
-            await dispatch(authActions.createUser(email, password, name));
-            
+    const handleRegister = () => {
+        if(!email.includes('@')) {
+            alert('Inncorect email');
+        } 
+        else if (password.length <= 4) {
+            alert('Password length must be 4+ characters');
         }
         else {
-            alert('Error!');
+            dispatch(authActions.createUser(email, password, name));
         }
     }
 
