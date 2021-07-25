@@ -10,7 +10,6 @@ export const authReducer = (state = initialState, action) => {
             return {...state, token: null};
         }
         case authActions.LOGIN: {
-            // alert('You logged in');
             return {...state, token: action.payload}
         }
         default:

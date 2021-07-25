@@ -54,8 +54,7 @@ export const createUser = (email, password, name) => async dispatch => {
                 }
             }
         });  
-        // console.log(response);
-        // alert('User created');
+      
         dispatch({
             type: CREATEUSER,
             payload: response.data     

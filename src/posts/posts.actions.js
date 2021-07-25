@@ -113,7 +113,6 @@ export const changeImage = (id, token, formData) => async dispatch => {
             headers: { 
                 Authorization: `Bearer ${token}`,
                 "Content-Type": "multipart/form-data",
-                // "Access-Control-Allow-Origin": "*", 
             },           
         });
         // console.log(response);
@@ -146,7 +145,6 @@ export const updatePost = (token, id, title, fullText, description) => async dis
                 Authorization: `Bearer ${token}`,
             },           
         });
-        // console.log(response);
         dispatch ({
             type: UPDATEPOST,
             payload: response.data,

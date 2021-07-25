@@ -40,9 +40,7 @@ const PostCreator = () => {
     const handlePostUpdate = async() => {
         if (title !== '' && fullText !== '' && description !== '' && fullText.length >= 20 && title.length >= 5) {
             await dispatch(postActions.updatePost(token, id, title, fullText, description));
-            // alert('Post updated');
             history.goBack();
-            // history.push('/lc');
         }
         else {
             alert('Error! Something went wrong');

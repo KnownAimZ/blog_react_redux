@@ -32,7 +32,6 @@ const PostPage = () => {
     }, [postData]);
 
     const handleDeletePost = async() => {
-        // console.log(token, postData._id);
         await dispatch(postActions.deletePost(token, postData._id));
         history.goBack();
     }

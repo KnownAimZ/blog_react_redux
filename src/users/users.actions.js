@@ -80,7 +80,6 @@ export const changeName = (id, token, name) => async dispatch => {
         {
             headers: { Authorization: `Bearer ${token}` },           
         });
-        // console.log(response);
         dispatch ({
             type: CHANGENAME,
             payload: response.data,
@@ -99,10 +98,8 @@ export const changeAvatar = (id, token, formData) => async dispatch => {
             headers: { 
                 Authorization: `Bearer ${token}`,
                 "Content-Type": "multipart/form-data",
-                // "Access-Control-Allow-Origin": "*", 
             },           
         });
-        // console.log(response);
         dispatch ({
             type: CHANGEAVATAR,
             payload: response.data,
