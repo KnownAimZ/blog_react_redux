@@ -38,13 +38,14 @@ const PostList = ({withControls, title}) => {
     };
 
     const reorder = (startIndex, endIndex, source, destination) => {
-        startIndex = source.droppableId === 'droppableList2'? startIndex + firstListSize : startIndex;
-        endIndex = destination.droppableId === 'droppableList2'? endIndex + firstListSize : endIndex;
+        startIndex = source.droppableId === 'droppableList2' ? startIndex + firstListSize : startIndex;
+        endIndex = destination.droppableId === 'droppableList2' ? endIndex + firstListSize : endIndex;
         if(source.droppableId === 'droppableList2' && destination.droppableId === 'droppableList1') {
             setFirstListSize(prev=> prev+1)
         }
         else if(source.droppableId === 'droppableList1' && destination.droppableId === 'droppableList2') {
             setFirstListSize(prev=> prev-1)
+            endIndex--;
         }
         const orderedPost = postsList;
         const [selected] = orderedPost.splice(startIndex, 1);
@@ -53,6 +54,7 @@ const PostList = ({withControls, title}) => {
     }
 
     const onDragEnd = (result) => {
+        // console.log(result);
         if (!result.destination) {
             return;
         }
@@ -71,83 +73,79 @@ const PostList = ({withControls, title}) => {
     return (
         <DragDropContext onDragEnd={onDragEnd}>
             <div className="Page">
-                        { withControls && 
-                        <div className="postcount_changer">
-                            <span>One List</span>
-                            <Switch
-                                color="default"
-                                checked={isMultiplePosts}
-                                onChange={()=>{setIsMultiplePosts(!isMultiplePosts)}}
-                                inputProps={{ 'aria-label': 'checkbox with default color' }}
-                            />
-                            <span>Two Lists</span>
-                        </div>
-                        }
-                        <div className="PostList">
-                        <h2>{!isMultiplePosts ? 'Single Post List' : 'Multiple Post Lists'}</h2>
-                        
-                        <div className="allPostLists">
-                            {!isMultiplePosts &&
-                            <Droppable droppableId="droppable">
+                { withControls && 
+                <div className="postcount_changer">
+                    <span>One List</span>
+                    <Switch
+                        color="default"
+                        checked={isMultiplePosts}
+                        onChange={()=>{setIsMultiplePosts(!isMultiplePosts)}}
+                        inputProps={{ 'aria-label': 'checkbox with default color' }}
+                    />
+                    <span>Two Lists</span>
+                </div>
+                }
+                <div className="PostList">
+                <h2>{!isMultiplePosts ? 'Single Post List' : 'Multiple Post Lists'}</h2>
+                <div className="allPostLists">
+                    {!isMultiplePosts &&
+                    <Droppable droppableId="droppable">
+                    {(provided) => (
+                    <div className="list" ref={provided.innerRef} {...provided.droppableProps}>
+                        {postsList.map((post, index) => (
+                            <Post 
+                                key={post._id}
+                                index = {index }
+                                {...post} 
+                            />   
+                        ))}
+                        {provided.placeholder}
+                    </div>)}
+                    </Droppable>
+                    }
+                    {isMultiplePosts && 
+                        <>
+                            <Droppable droppableId="droppableList1">
                             {(provided) => (
                             <div className="list" ref={provided.innerRef} {...provided.droppableProps}>
-                                {postsList.map((post, index) => (
-                                    <Post 
-                                        key={post._id}
-                                        index = {index }
-                                        {...post} 
-                                    />   
-                                ))}
+                            <h3>Post List 1</h3>
+                            {postsList.filter((post, index) => index < firstListSize).map((post, index) => (
+                                <Post 
+                                    key={post._id}
+                                    index = {index }
+                                    {...post} 
+                                />   
+                            ))}
                                 {provided.placeholder}
                             </div>)}
                             </Droppable>
-                            }
-                            
-                            {isMultiplePosts && 
-                                <>
-                                    <Droppable droppableId="droppableList1">
-                                    {(provided) => (
-                                    <div className="list" ref={provided.innerRef} {...provided.droppableProps}>
-                                    <h3>Post List 1</h3>
-                                    {postsList.filter((post, index) => index < firstListSize).map((post, index) => (
-                                        <Post 
-                                            key={post._id}
-                                            index = {index }
-                                            {...post} 
-                                        />   
-                                    ))}
-                                        {provided.placeholder}
-                                    </div>)}
-                                    </Droppable>
-
-                                    <Droppable droppableId="droppableList2">
-                                    {(provided) => (
-                                    <div className="list" ref={provided.innerRef} {...provided.droppableProps}>
-                                    <h3>Post List 2</h3>
-                                    {postsList.filter((post, index) => index >= firstListSize).map((post, index) => (
-                                        <Post 
-                                            key={post._id}
-                                            index = {index }
-                                            {...post} 
-                                        />   
-                                    ))}
-                                        {provided.placeholder}                                 
-                                    </div>)}
-                                    </Droppable>    
-                                </>                                
-                            }                             
-                        </div>
-
-                        { withControls && 
-                        <div className="post_controls">
-                            <Button variant="contained" color="primary" onClick={handlePrev}>
-                                Previous
-                            </Button>
-                            <Button variant="contained" color="primary" onClick={handleNext}>
-                                Next
-                            </Button>              
-                        </div> }
-                    </div>
+                            <Droppable droppableId="droppableList2">
+                            {(provided) => (
+                            <div className="list" ref={provided.innerRef} {...provided.droppableProps}>
+                            <h3>Post List 2</h3>
+                            {postsList.filter((post, index) => index >= firstListSize).map((post, index) => (
+                                <Post 
+                                    key={post._id}
+                                    index = {index }
+                                    {...post} 
+                                />   
+                            ))}
+                                {provided.placeholder}                                 
+                            </div>)}
+                            </Droppable>    
+                        </>                                
+                    }                             
+                </div>
+                { withControls && 
+                <div className="post_controls">
+                    <Button variant="contained" color="primary" onClick={handlePrev}>
+                        Previous
+                    </Button>
+                    <Button variant="contained" color="primary" onClick={handleNext}>
+                        Next
+                    </Button>              
+                </div> }
+                </div>
             </div>
         </DragDropContext>
        );
