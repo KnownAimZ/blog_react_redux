@@ -9,6 +9,7 @@ export const LIKEPOST = 'POSTS/LIKEPOST';
 export const CHANGEIMAGE = 'POSTS/CHANGEIMAGE';
 export const CLEARSELECTEDPOST = 'POSTS/CLEARSELECTEDPOST';
 export const UPDATEPOST = 'POSTS/UPDATEPOST';
+export const REORDERPOSTS = 'POSTS/REORDERPOSTS';
 
 export const setPosition = position => {
     return {
@@ -19,7 +20,6 @@ export const setPosition = position => {
 
 export const getPostsByPosition = position => async dispatch => {
     const posts = await axios.get(`https://nodejs-test-api-blog.herokuapp.com/api/v1/posts?skip=${position}`);
-    // console.log(posts);
     dispatch({
         type: GETPOSTS,
         payload: posts.data
@@ -152,5 +152,12 @@ export const updatePost = (token, id, title, fullText, description) => async dis
     }
     catch(err) {
         console.log(err);
+    }
+};
+
+export const reorderPosts = orderedList => {
+    return {
+        type: REORDERPOSTS,
+        payload: orderedList,
     }
 };

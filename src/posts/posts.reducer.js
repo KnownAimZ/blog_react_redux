@@ -3,7 +3,8 @@
 const initialState = {
     position: 0,
     postsList: [],
-    choosedPost: null
+    choosedPost: null,
+    // postToLoad: 10,
 };
 
 export const postsReducer = (state = initialState, action) => {
@@ -24,6 +25,8 @@ export const postsReducer = (state = initialState, action) => {
             return {...state, choosedPost: null}
         case postActions.UPDATEPOST:
             return {...state, choosedPost: action.payload};
+        case postActions.REORDERPOSTS: 
+            return {...state, postsList: action.payload}
         default:
             return state;
     }

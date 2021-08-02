@@ -29,9 +29,8 @@ const UserList = () => {
                 variant="outlined"
                 />
                 {users.filter(user => user['email'].includes(usersSearch)).map(user => (<User key={user._id} {...user} />)) }
-                </div>
             </div>
-        
+        </div>        
     );
 }; 
 
