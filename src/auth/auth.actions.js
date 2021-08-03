@@ -1,9 +1,6 @@
 import axios from "axios";
 import {AUTH, USERS} from "../app/API.js";
-
-export const LOGIN = "AUTH/LOGIN";
-export const LOGOUT = "AUTH/LOGOUT";
-export const CREATEUSER = "AUTH/CREATEUSER";
+import {LOGIN, LOGOUT, CREATEUSER} from "./auth.actiontypes.js";
 
 export const authLogout = () => {
     return {

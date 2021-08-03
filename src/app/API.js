@@ -6,4 +6,3 @@ export const USERS_UPLOAD = `${USERS}upload/`;
 export const POSTS = `${API}posts/`;
 export const POSTS_UPLOAD = `${POSTS}upload/`;
 export const POSTS_LIKE = `${POSTS}like/`;
-

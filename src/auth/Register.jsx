@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, Link } from 'react-router-dom';
 import { TextField, Button } from '@material-ui/core';
-import * as authActions from './auth.actions.js';
+import {createUser} from './auth.actions.js';
 import './Register.scss';
 
 const Register = () => {
@@ -27,7 +27,7 @@ const Register = () => {
             alert('Password length must be 4+ characters');
         }
         else {
-            dispatch(authActions.createUser(email, password, name));
+            dispatch(createUser(email, password, name));
         }
     }
 

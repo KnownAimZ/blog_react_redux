@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, Link } from 'react-router-dom';
 import { TextField, Button } from '@material-ui/core';
-import * as authActions from './auth.actions.js';
+import {authLogin} from './auth.actions.js';
 import './Login.scss';
 
 const Login = () => {
@@ -26,7 +26,7 @@ const Login = () => {
     };
     const handleLogin = async() => {
         if(email.includes('@') && password.length > 4) {
-            await dispatch(authActions.authLogin(email, password));            
+            await dispatch(authLogin(email, password));            
         }
         else {
             alert('Error!');

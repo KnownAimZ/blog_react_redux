@@ -1,4 +1,14 @@
- import * as postActions from './posts.actions.js';
+import {
+    SETPOSITION,
+    GETPOSTS,
+    CLEARPOSTS,
+    CREATEPOST,
+    GETPOSTBYID,
+    CHANGEIMAGE,
+    CLEARSELECTEDPOST,
+    UPDATEPOST,
+    REORDERPOSTS
+} from './posts.actiontypes.js';
 
 const initialState = {
     position: 0,
@@ -9,23 +19,23 @@ const initialState = {
 
 export const postsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case postActions.SETPOSITION:
+        case SETPOSITION:
             return {...state, position: action.payload};
-        case postActions.GETPOSTS:
+        case GETPOSTS:
             return {...state, postsList: action.payload};
-        case postActions.CLEARPOSTS:
+        case CLEARPOSTS:
             return {...state, postsList: []};
-        case postActions.CREATEPOST:
+        case CREATEPOST:
             return {...state}
-        case postActions.GETPOSTBYID:
+        case GETPOSTBYID:
             return {...state, choosedPost: action.payload};
-        case postActions.CHANGEIMAGE:
+        case CHANGEIMAGE:
             return {...state, choosedPost: action.payload};
-        case postActions.CLEARSELECTEDPOST:
+        case CLEARSELECTEDPOST:
             return {...state, choosedPost: null}
-        case postActions.UPDATEPOST:
+        case UPDATEPOST:
             return {...state, choosedPost: action.payload};
-        case postActions.REORDERPOSTS: 
+        case REORDERPOSTS: 
             return {...state, postsList: action.payload}
         default:
             return state;

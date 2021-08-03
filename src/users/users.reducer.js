@@ -1,5 +1,13 @@
-import * as userActions from './users.actions.js';
-import { CREATEUSER } from '../auth/auth.actions.js';
+import {
+    FETCHUSERS, 
+    FINDSELECTEDUSER, 
+    CLEARSELECTEDUSER, 
+    GETUSERBYTOKEN,
+    CLEARMYUSER,    
+    CHANGENAME,
+    CHANGEAVATAR,
+} from './users.actiontypes.js';
+import { CREATEUSER } from '../auth/auth.actiontypes.js';
 
 const initialState = {
     allUsers: [],
@@ -9,19 +17,19 @@ const initialState = {
 
 export const usersReducer = (state = initialState, action) => {
     switch (action.type) {
-        case userActions.FETCHUSERS:
+        case FETCHUSERS:
             return {...state, allUsers: action.payload};
-        case userActions.FINDSELECTEDUSER:
+        case FINDSELECTEDUSER:
             return {...state, choosedUser: action.payload};
-        case userActions.CLEARSELECTEDUSER:
+        case CLEARSELECTEDUSER:
             return {...state, choosedUser: null};
-        case userActions.GETUSERBYTOKEN:
+        case GETUSERBYTOKEN:
             return {...state, myUser: action.payload};
-        case userActions.CLEARMYUSER:
+        case CLEARMYUSER:
             return {...state, myUser: null};
-        case userActions.CHANGENAME:
+        case CHANGENAME:
             return {...state, myUser: action.payload}
-        case userActions.CHANGEAVATAR:
+        case CHANGEAVATAR:
             return {...state, myUser: action.payload}
         case CREATEUSER:
             return {...state, myUser: action.payload}

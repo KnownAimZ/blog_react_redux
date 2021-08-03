@@ -1,4 +1,4 @@
- import * as authActions from './auth.actions.js';
+import {LOGIN, LOGOUT} from "./auth.actiontypes.js";
 
 const initialState = {
     token: null,
@@ -6,10 +6,10 @@ const initialState = {
 
 export const authReducer = (state = initialState, action) => {
     switch (action.type) {
-        case authActions.LOGOUT: {
+        case LOGOUT: {
             return {...state, token: null};
         }
-        case authActions.LOGIN: {
+        case LOGIN: {
             return {...state, token: action.payload}
         }
         default:

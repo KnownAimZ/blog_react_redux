@@ -1,17 +1,18 @@
 import axios from "axios";
 import {POSTS, POSTS_LIKE, POSTS_UPLOAD} from '../app/API.js';
-
-export const SETPOSITION = 'POSTS/SETPOSITION';
-export const GETPOSTS = 'POSTS/GETPOSTS';
-export const CLEARPOSTS = 'POSTS/CLEARPOSTS';
-export const CREATEPOST = 'POSTS/CREATEPOST';
-export const GETPOSTBYID = 'POSTS/GETPOSTBYID';
-export const DELETEPOST = 'POSTS/DELETEPOST';
-export const LIKEPOST = 'POSTS/LIKEPOST';
-export const CHANGEIMAGE = 'POSTS/CHANGEIMAGE';
-export const CLEARSELECTEDPOST = 'POSTS/CLEARSELECTEDPOST';
-export const UPDATEPOST = 'POSTS/UPDATEPOST';
-export const REORDERPOSTS = 'POSTS/REORDERPOSTS';
+import {
+    SETPOSITION,
+    GETPOSTS,
+    CLEARPOSTS,
+    CREATEPOST,
+    GETPOSTBYID,
+    DELETEPOST,
+    LIKEPOST,
+    CHANGEIMAGE,
+    CLEARSELECTEDPOST,
+    UPDATEPOST,
+    REORDERPOSTS
+} from './posts.actiontypes.js';
 
 export const setPosition = position => {
     return {

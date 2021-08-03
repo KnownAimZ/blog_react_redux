@@ -1,14 +1,15 @@
 import axios from "axios";
 import { USERS, USERS_UPLOAD, AUTH_USER } from "../app/API";
-
-export const FETCHUSERS = 'USERS/FETCHUSERS';
-export const FINDSELECTEDUSER ='USERS/FINDSELECTEDUSER';
-export const CLEARSELECTEDUSER = 'USERS/CLEARSELECTEDUSER';
-export const GETUSERBYTOKEN = 'USERS/GETUSERBYTOKEN';
-export const CLEARMYUSER = 'USERS/CLEARMYUSER';
-export const DELETEUSER = 'USERS/DELETEUSER';
-export const CHANGENAME = 'USERS/CHANGENAME';
-export const CHANGEAVATAR = 'USERS/CHANGEAVATAR';
+import {
+    FETCHUSERS, 
+    FINDSELECTEDUSER, 
+    CLEARSELECTEDUSER, 
+    GETUSERBYTOKEN,
+    CLEARMYUSER,
+    DELETEUSER,
+    CHANGENAME,
+    CHANGEAVATAR,
+} from './users.actiontypes.js';
 
 export const fetchUsers = () => async dispatch => {
     const users = await axios.get(USERS);
