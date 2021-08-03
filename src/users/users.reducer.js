@@ -9,7 +9,7 @@ const initialState = {
 
 export const usersReducer = (state = initialState, action) => {
     switch (action.type) {
-        case userActions.GETUSERLIST:
+        case userActions.FETCHUSERS:
             return {...state, allUsers: action.payload};
         case userActions.FINDSELECTEDUSER:
             return {...state, choosedUser: action.payload};

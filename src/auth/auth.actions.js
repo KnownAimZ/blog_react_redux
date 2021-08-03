@@ -1,4 +1,6 @@
 import axios from "axios";
+import {AUTH, USERS} from "../app/API.js";
+
 export const LOGIN = "AUTH/LOGIN";
 export const LOGOUT = "AUTH/LOGOUT";
 export const CREATEUSER = "AUTH/CREATEUSER";
@@ -11,7 +13,7 @@ export const authLogout = () => {
 
 export const authLogin = (email, password) => async dispatch => {
     try {
-        const response = await axios.post(`https://nodejs-test-api-blog.herokuapp.com/api/v1/auth`, {
+        const response = await axios.post(AUTH, {
             email,
             password,
         })
@@ -38,7 +40,7 @@ export const authLogin = (email, password) => async dispatch => {
 
 export const createUser = (email, password, name) => async dispatch => {
     try {
-        const response = await axios.post(`https://nodejs-test-api-blog.herokuapp.com/api/v1/users`, {
+        const response = await axios.post(USERS, {
             email,
             password,
             name

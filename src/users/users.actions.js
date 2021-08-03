@@ -1,5 +1,7 @@
 import axios from "axios";
-export const GETUSERLIST = 'USERS/GETUSERLIST';
+import { USERS, USERS_UPLOAD, AUTH_USER } from "../app/API";
+
+export const FETCHUSERS = 'USERS/FETCHUSERS';
 export const FINDSELECTEDUSER ='USERS/FINDSELECTEDUSER';
 export const CLEARSELECTEDUSER = 'USERS/CLEARSELECTEDUSER';
 export const GETUSERBYTOKEN = 'USERS/GETUSERBYTOKEN';
@@ -8,18 +10,11 @@ export const DELETEUSER = 'USERS/DELETEUSER';
 export const CHANGENAME = 'USERS/CHANGENAME';
 export const CHANGEAVATAR = 'USERS/CHANGEAVATAR';
 
-export const getUserList = users => {
-    return {
-        type: GETUSERLIST,
-        payload: users
-    };
-};
-
 export const fetchUsers = () => async dispatch => {
-    const users = await axios.get('https://nodejs-test-api-blog.herokuapp.com/api/v1/users');
+    const users = await axios.get(USERS);
     dispatch( 
         { 
-            type: GETUSERLIST, 
+            type: FETCHUSERS, 
             payload: users.data
         }
     );    
@@ -27,7 +22,7 @@ export const fetchUsers = () => async dispatch => {
 
 export const findSelectedUser = userId => async dispatch => {
     try {
-        const user = await axios.get(`https://nodejs-test-api-blog.herokuapp.com/api/v1/users/${userId}`);
+        const user = await axios.get(`${USERS}${userId}`);
         dispatch(
             {
                 type: FINDSELECTEDUSER,
@@ -47,7 +42,7 @@ export const clearSelectedUser = () => {
 };
 
 export const getUserByToken = token => async dispatch => {
-    const response = await axios.get('https://nodejs-test-api-blog.herokuapp.com/api/v1/auth/user',{
+    const response = await axios.get(AUTH_USER,{
         headers: { Authorization: `Bearer ${token}` }
     });
     dispatch ({
@@ -63,7 +58,7 @@ export const clearMyUser = () => {
 };
 
 export const deleteUser = (id, token) => async dispatch => {
-    await axios.delete(`https://nodejs-test-api-blog.herokuapp.com/api/v1/users/${id}`,{
+    await axios.delete(`${USERS}${id}`,{
         headers: { Authorization: `Bearer ${token}` }
     });
     dispatch ({
@@ -73,7 +68,7 @@ export const deleteUser = (id, token) => async dispatch => {
 
 export const changeName = (id, token, name) => async dispatch => {
     try {
-        const response = await axios.patch(`https://nodejs-test-api-blog.herokuapp.com/api/v1/users/${id}`,
+        const response = await axios.patch(`${USERS}${id}`,
         {
             "name": name
         },
@@ -92,7 +87,7 @@ export const changeName = (id, token, name) => async dispatch => {
 
 export const changeAvatar = (id, token, formData) => async dispatch => {
     try {
-        const response = await axios.put(`https://nodejs-test-api-blog.herokuapp.com/api/v1/users/upload/${id}`,
+        const response = await axios.put(`${USERS_UPLOAD}${id}`,
         formData,
         {
             headers: { 

@@ -1,4 +1,6 @@
 import axios from "axios";
+import {POSTS, POSTS_LIKE, POSTS_UPLOAD} from '../app/API.js';
+
 export const SETPOSITION = 'POSTS/SETPOSITION';
 export const GETPOSTS = 'POSTS/GETPOSTS';
 export const CLEARPOSTS = 'POSTS/CLEARPOSTS';
@@ -19,7 +21,7 @@ export const setPosition = position => {
 }
 
 export const getPostsByPosition = position => async dispatch => {
-    const posts = await axios.get(`https://nodejs-test-api-blog.herokuapp.com/api/v1/posts?skip=${position}`);
+    const posts = await axios.get(`${POSTS}?skip=${position}`);
     dispatch({
         type: GETPOSTS,
         payload: posts.data
@@ -27,7 +29,7 @@ export const getPostsByPosition = position => async dispatch => {
 }
 
 export const getPostsByUserId = userId => async dispatch => {
-    const posts = await axios.get(`https://nodejs-test-api-blog.herokuapp.com/api/v1/posts?postedBy=${userId}`);
+    const posts = await axios.get(`${POSTS}?postedBy=${userId}`);
     dispatch({
         type: GETPOSTS,
         payload: posts.data
@@ -43,7 +45,7 @@ export const clearPosts = () => {
 
 export const createPost = (token, title, fullText, description) => async dispatch => {
     try {
-        await axios.post('https://nodejs-test-api-blog.herokuapp.com/api/v1/posts',
+        await axios.post(POSTS,
         {
             title,
             fullText,
@@ -63,7 +65,7 @@ export const createPost = (token, title, fullText, description) => async dispatc
 
 export const getPostById = id => async dispatch => {
     try {
-        const post = await axios.get(`https://nodejs-test-api-blog.herokuapp.com/api/v1/posts/${id}`);
+        const post = await axios.get(`${POSTS}${id}`);
         // console.log(post);
         dispatch({
             type: GETPOSTBYID,
@@ -77,7 +79,7 @@ export const getPostById = id => async dispatch => {
 
 export const deletePost = (token, postId) => async dispatch => {
     try {
-        await axios.delete(`https://nodejs-test-api-blog.herokuapp.com/api/v1/posts/${postId}`,{
+        await axios.delete(`${POSTS}${postId}`,{
         headers: { Authorization: `Bearer ${token}` }
         });
         dispatch({
@@ -91,7 +93,7 @@ export const deletePost = (token, postId) => async dispatch => {
 
 export const likePost = (token, postId) => async dispatch => {
     try {
-        await axios.put(`https://nodejs-test-api-blog.herokuapp.com/api/v1/posts/like/${postId}`, 
+        await axios.put(`${POSTS_LIKE}${postId}`, 
         { hello: 'world' },  //not working with empty data      
         {
             headers: { Authorization: `Bearer ${token}` }
@@ -107,7 +109,7 @@ export const likePost = (token, postId) => async dispatch => {
 
 export const changeImage = (id, token, formData) => async dispatch => {
     try {
-        const response = await axios.put(`https://nodejs-test-api-blog.herokuapp.com/api/v1/posts/upload/${id}`,
+        const response = await axios.put(`${POSTS_UPLOAD}${id}`,
         formData,
         {
             headers: { 
@@ -134,7 +136,7 @@ export const clearSelectedPost = () => {
 
 export const updatePost = (token, id, title, fullText, description) => async dispatch => {
     try {
-        const response = await axios.patch(`https://nodejs-test-api-blog.herokuapp.com/api/v1/posts/${id}`,
+        const response = await axios.patch(`${POSTS}${id}`,
         {
             title,
             fullText,
