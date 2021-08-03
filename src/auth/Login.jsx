@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, Link } from 'react-router-dom';
-import { TextField, Button } from '@material-ui/core';
+import {useDispatch, useSelector} from 'react-redux';
+import {useHistory, Link} from 'react-router-dom';
+import {TextField, Button} from '@material-ui/core';
 import {authLogin} from './auth.actions.js';
 import './Login.scss';
 

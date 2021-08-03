@@ -1,9 +1,9 @@
 import React, {useEffect} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom';
-import { Avatar } from '@material-ui/core';
-import * as userActions from './users.actions.js';
-import * as postActions from '../posts/posts.actions.js';
+import {useDispatch, useSelector} from 'react-redux';
+import {useHistory, useParams} from 'react-router-dom';
+import {Avatar} from '@material-ui/core';
+import {findSelectedUser, clearSelectedUser} from './users.actions.js';
+import {getPostsByUserId, clearPosts} from '../posts/posts.actions.js';
 import PostList from '../posts/PostList.jsx';
 import './UserPage.scss';
 
@@ -18,11 +18,11 @@ const UserPage = () => {
         if(myUser && id === myUser._id) {
             history.push('/lc');
         }
-        dispatch(userActions.findSelectedUser(id));
-        dispatch(postActions.getPostsByUserId(id));
+        dispatch(findSelectedUser(id));
+        dispatch(getPostsByUserId(id));
         return ()=> {
-            dispatch(userActions.clearSelectedUser());
-            dispatch(postActions.clearPosts());
+            dispatch(clearSelectedUser());
+            dispatch(clearPosts());
         }
 
     },[dispatch, history, id, myUser]);

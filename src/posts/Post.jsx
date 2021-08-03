@@ -1,6 +1,6 @@
-import { Draggable } from 'react-beautiful-dnd';
-import { Link } from 'react-router-dom';
-import { Typography } from '@material-ui/core';
+import {Draggable} from 'react-beautiful-dnd';
+import {Link} from 'react-router-dom';
+import {Typography} from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent'

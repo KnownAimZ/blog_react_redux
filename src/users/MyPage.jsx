@@ -1,39 +1,39 @@
 import React, {useEffect} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {Link, useHistory} from 'react-router-dom';
-import { Avatar, Button } from '@material-ui/core';
-import * as userActions from './users.actions.js';
-import * as postActions from '../posts/posts.actions.js';
-import * as authActions from '../auth/auth.actions.js'
+import {Avatar, Button} from '@material-ui/core';
+import {getUserByToken, deleteUser, clearMyUser, changeName, changeAvatar} from './users.actions.js';
+import {clearPosts, getPostsByUserId} from '../posts/posts.actions.js';
+import {authLogout} from '../auth/auth.actions.js'
 import PostList from '../posts/PostList.jsx';
 
 const MyPage = () => {
     const dispatch = useDispatch();
     const history = useHistory();
-    const token = useSelector(state => state.auth.token);
+    const token = useSuserActionselector(state => state.auth.token);
     const currentUser = useSelector(state => state.users.myUser);
 
     useEffect(()=>{
         if(token) {
-            dispatch(userActions.getUserByToken(token));                      
+            dispatch(getUserByToken(token));                      
         } 
         return ()=> {
-            dispatch(postActions.clearPosts());
+            dispatch(clearPosts());
         }
     },[dispatch, token]);
 
     useEffect(()=>{
         if (currentUser) {
-            dispatch(postActions.getPostsByUserId(currentUser._id));
+            dispatch(getPostsByUserId(currentUser._id));
         }
     },[currentUser, dispatch]);
 
     const handleDeleteUser = () => {
         let choose = window.confirm("Are you sure?");
         if (choose) {
-            dispatch(userActions.deleteUser(currentUser._id, token));
-            dispatch(userActions.clearMyUser());
-            dispatch(authActions.authLogout());
+            dispatch(deleteUser(currentUser._id, token));
+            dispatch(clearMyUser());
+            dispatch(authLogout());
             alert('user deleted');
             history.push('/login');
         }            
@@ -42,19 +42,19 @@ const MyPage = () => {
     const handleChangeName = () => {
         const name = prompt('New name', currentUser.name);
         if (name) {
-            dispatch(userActions.changeName(currentUser._id, token, name));
+            dispatch(changeName(currentUser._id, token, name));
         }
     }
 
     const handleImageChange = ({target}) => {
         const formData = new FormData();
         formData.append('avatar', target.files[0]);
-        dispatch(userActions.changeAvatar(currentUser._id, token, formData));
+        dispatch(changeAvatar(currentUser._id, token, formData));
     }
 
     const handleLogout = () => {
-        dispatch(userActions.clearMyUser());
-        dispatch(authActions.authLogout());
+        dispatch(clearMyUser());
+        dispatch(authLogout());
         history.push('/login');
     }
     

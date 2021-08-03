@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux'; 
-import { useParams } from 'react-router';
-import { useHistory, Link } from 'react-router-dom';
-import { Button } from '@material-ui/core';
-import * as postActions from './posts.actions.js';
-import * as userActions from '../users/users.actions.js';
+import React, {useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux'; 
+import {useParams} from 'react-router';
+import {useHistory, Link} from 'react-router-dom';
+import {Button} from '@material-ui/core';
+import {getPostById, clearSelectedPost, likePost, deletePost, changeImage} from './posts.actions.js';
+import {clearSelectedUser, findSelectedUser} from '../users/users.actions.js';
 import User from '../users/User.jsx'
 import './PostPage.scss';
 
@@ -18,33 +18,33 @@ const PostPage = () => {
     const token = useSelector(state => state.auth.token);
 
     useEffect(()=> {
-        dispatch(postActions.getPostById(id));
+        dispatch(getPostById(id));
         return ()=> {
-            dispatch(userActions.clearSelectedUser());
-            dispatch(postActions.clearSelectedPost());
+            dispatch(clearSelectedUser());
+            dispatch(clearSelectedPost());
         }
     }, [dispatch, id]);
 
     useEffect(()=> {
         if (postData!== null) {
-            dispatch(userActions.findSelectedUser(postData.postedBy));
+            dispatch(findSelectedUser(postData.postedBy));
         } 
     }, [postData, dispatch]);
 
     const handleDeletePost = async() => {
-        await dispatch(postActions.deletePost(token, postData._id));
+        await dispatch(deletePost(token, postData._id));
         history.goBack();
     }
 
     const handleLikePost = async() => {
-        await dispatch(postActions.likePost(token, postData._id));
-        await dispatch(postActions.getPostById(id));
+        await dispatch(likePost(token, postData._id));
+        await dispatch(getPostById(id));
     }
 
     const handleImageChange = ({target}) => {
         const formData = new FormData();
         formData.append('image', target.files[0]);
-        dispatch(postActions.changeImage(postData._id, token, formData));
+        dispatch(changeImage(postData._id, token, formData));
     }
 
     if (postData === null) {

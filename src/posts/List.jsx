@@ -1,5 +1,5 @@
 import React from "react";
-import { Droppable } from "react-beautiful-dnd";
+import {Droppable} from "react-beautiful-dnd";
 import Post from "./Post";
 
 const List = ({postsList, droppableId,title,filterCallback} ) => {

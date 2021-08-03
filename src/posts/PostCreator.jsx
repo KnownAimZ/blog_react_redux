@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, useHistory, useParams } from 'react-router-dom';
-import { TextField, Button } from '@material-ui/core';
-import * as postActions from '../posts/posts.actions.js';
+import {useDispatch, useSelector} from 'react-redux';
+import {Link, useHistory, useParams} from 'react-router-dom';
+import {TextField, Button} from '@material-ui/core';
+import {createPost, updatePost} from '../posts/posts.actions.js';
 import './PostCreator.scss';
 
 
@@ -29,7 +29,7 @@ const PostCreator = () => {
 
     const handlePostCreate = async() => {
         if (title !== '' && fullText !== '' && description !== '' && fullText.length >= 20 && title.length >= 5) {
-            await dispatch(postActions.createPost(token, title, fullText, description));
+            await dispatch(createPost(token, title, fullText, description));
             history.push('/lc');
         }
         else {
@@ -39,7 +39,7 @@ const PostCreator = () => {
 
     const handlePostUpdate = async() => {
         if (title !== '' && fullText !== '' && description !== '' && fullText.length >= 20 && title.length >= 5) {
-            await dispatch(postActions.updatePost(token, id, title, fullText, description));
+            await dispatch(updatePost(token, id, title, fullText, description));
             history.goBack();
         }
         else {

@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
+import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 import UserList from '../users/UserList.jsx';
 import Header from './Header.jsx';
 import PostList from '../posts/PostList';

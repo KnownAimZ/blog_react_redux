@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, {useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import TextField from '@material-ui/core/TextField';
-import * as userActions from './users.actions.js';
+import {fetchUsers} from './users.actions.js';
 import User from './User.jsx';
 import './UserList.scss';
 
@@ -11,7 +11,7 @@ const UserList = () => {
     const [usersSearch, setUsersSearch] = React.useState('');
 
     useEffect(()=>{
-        dispatch(userActions.fetchUsers());
+        dispatch(fetchUsers());
     }, [dispatch]);
 
     const handleChange = (event) => {

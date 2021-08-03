@@ -1,8 +1,8 @@
-import React,{ useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { DragDropContext } from 'react-beautiful-dnd';
-import { Button, Switch } from '@material-ui/core';
-import * as postActions from './posts.actions.js';
+import React,{useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {DragDropContext} from 'react-beautiful-dnd';
+import {Button, Switch} from '@material-ui/core';
+import {getPostsByPosition, setPosition, clearPosts} from './posts.actions.js';
 import List from './List.jsx';
 import './PostList.scss';
 
@@ -14,26 +14,26 @@ const PostList = ({withControls, title}) => {
 
     useEffect(() => {
         if(withControls) {
-            dispatch(postActions.getPostsByPosition(position));
+            dispatch(getPostsByPosition(position));
         }
         setFirstListSize(5);
     },[position, dispatch, withControls]);
 
     useEffect(()=> {
         return ()=> {
-            dispatch(postActions.clearPosts());
+            dispatch(clearPosts());
         }
     },[dispatch]);
 
     const handleNext = () => {
         if(postsList.length === 10) {
-            dispatch(postActions.setPosition(position + 10));
+            dispatch(setPosition(position + 10));
         }
     };
 
     const handlePrev = () => {
         if(position > 0) {
-            dispatch(postActions.setPosition(position - 10));
+            dispatch(setPosition(position - 10));
         }
     };
 
