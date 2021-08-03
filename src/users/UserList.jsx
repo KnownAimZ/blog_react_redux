@@ -12,7 +12,7 @@ const UserList = () => {
 
     useEffect(()=>{
         dispatch(userActions.fetchUsers());
-    }, []);
+    }, [dispatch]);
 
     const handleChange = (event) => {
         setUsersSearch(event.target.value);

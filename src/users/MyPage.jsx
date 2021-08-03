@@ -20,13 +20,13 @@ const MyPage = () => {
         return ()=> {
             dispatch(postActions.clearPosts());
         }
-    },[]);
+    },[dispatch, token]);
 
     useEffect(()=>{
         if (currentUser) {
             dispatch(postActions.getPostsByUserId(currentUser._id));
         }
-    },[currentUser]);
+    },[currentUser, dispatch]);
 
     const handleDeleteUser = () => {
         let choose = window.confirm("Are you sure?");

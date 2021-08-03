@@ -17,7 +17,7 @@ const Register = () => {
         if(myUser) {
             history.push('/login');
         }
-    },[myUser]);
+    },[myUser, history]);
 
     const handleRegister = () => {
         if(!email.includes('@')) {

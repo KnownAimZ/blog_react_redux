@@ -23,13 +23,13 @@ const PostPage = () => {
             dispatch(userActions.clearSelectedUser());
             dispatch(postActions.clearSelectedPost());
         }
-    }, []);
+    }, [dispatch, id]);
 
     useEffect(()=> {
         if (postData!== null) {
             dispatch(userActions.findSelectedUser(postData.postedBy));
         } 
-    }, [postData]);
+    }, [postData, dispatch]);
 
     const handleDeletePost = async() => {
         await dispatch(postActions.deletePost(token, postData._id));

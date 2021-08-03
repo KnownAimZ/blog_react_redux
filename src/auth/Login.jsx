@@ -16,7 +16,7 @@ const Login = () => {
         if(token) {
             history.push('/lc');
         }
-    },[token]);
+    },[token, history]);
 
     const handleEmail = (event) => {
         setEmail(event.target.value);

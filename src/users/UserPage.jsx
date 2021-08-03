@@ -25,7 +25,7 @@ const UserPage = () => {
             dispatch(postActions.clearPosts());
         }
 
-    },[]);
+    },[dispatch, history, id, myUser]);
 
     if (currentUser === null) return (<p>Loading</p>);
 

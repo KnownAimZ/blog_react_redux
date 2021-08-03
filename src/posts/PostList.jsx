@@ -1,9 +1,9 @@
 import React,{ useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import { DragDropContext } from 'react-beautiful-dnd';
 import { Button, Switch } from '@material-ui/core';
 import * as postActions from './posts.actions.js';
-import Post from './Post.jsx';
+import List from './List.jsx';
 import './PostList.scss';
 
 const PostList = ({withControls, title}) => {
@@ -17,13 +17,13 @@ const PostList = ({withControls, title}) => {
             dispatch(postActions.getPostsByPosition(position));
         }
         setFirstListSize(5);
-    },[position]);
+    },[position, dispatch, withControls]);
 
     useEffect(()=> {
         return ()=> {
             dispatch(postActions.clearPosts());
         }
-    },[]);
+    },[dispatch]);
 
     const handleNext = () => {
         if(postsList.length === 10) {
@@ -54,7 +54,6 @@ const PostList = ({withControls, title}) => {
     }
 
     const onDragEnd = (result) => {
-        // console.log(result);
         if (!result.destination) {
             return;
         }
@@ -89,50 +88,26 @@ const PostList = ({withControls, title}) => {
                 <h2>{!isMultiplePosts ? 'Single Post List' : 'Multiple Post Lists'}</h2>
                 <div className="allPostLists">
                     {!isMultiplePosts &&
-                    <Droppable droppableId="droppable">
-                    {(provided) => (
-                    <div className="list" ref={provided.innerRef} {...provided.droppableProps}>
-                        {postsList.map((post, index) => (
-                            <Post 
-                                key={post._id}
-                                index = {index }
-                                {...post} 
-                            />   
-                        ))}
-                        {provided.placeholder}
-                    </div>)}
-                    </Droppable>
+                        <List 
+                            postsList={postsList} 
+                            droppableId="droppable" 
+                            filterCallback={()=>true} 
+                        />
                     }
                     {isMultiplePosts && 
                         <>
-                            <Droppable droppableId="droppableList1">
-                            {(provided) => (
-                            <div className="list" ref={provided.innerRef} {...provided.droppableProps}>
-                            <h3>Post List 1</h3>
-                            {postsList.filter((post, index) => index < firstListSize).map((post, index) => (
-                                <Post 
-                                    key={post._id}
-                                    index = {index }
-                                    {...post} 
-                                />   
-                            ))}
-                                {provided.placeholder}
-                            </div>)}
-                            </Droppable>
-                            <Droppable droppableId="droppableList2">
-                            {(provided) => (
-                            <div className="list" ref={provided.innerRef} {...provided.droppableProps}>
-                            <h3>Post List 2</h3>
-                            {postsList.filter((post, index) => index >= firstListSize).map((post, index) => (
-                                <Post 
-                                    key={post._id}
-                                    index = {index }
-                                    {...post} 
-                                />   
-                            ))}
-                                {provided.placeholder}                                 
-                            </div>)}
-                            </Droppable>    
+                            <List 
+                                postsList={postsList} 
+                                droppableId="droppableList1" 
+                                filterCallback={(post, index) => index < firstListSize}
+                                title="Post List 1" 
+                            />
+                            <List 
+                                postsList={postsList} 
+                                droppableId="droppableList2" 
+                                filterCallback={(post, index) => index >= firstListSize}
+                                title="Post List 2" 
+                            />
                         </>                                
                     }                             
                 </div>

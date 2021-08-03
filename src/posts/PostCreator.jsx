@@ -25,7 +25,7 @@ const PostCreator = () => {
             }
             updateFields();
         }
-    },[id]);
+    },[id, post.title, post.fullText, post.description]);
 
     const handlePostCreate = async() => {
         if (title !== '' && fullText !== '' && description !== '' && fullText.length >= 20 && title.length >= 5) {
