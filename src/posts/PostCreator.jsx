@@ -16,7 +16,7 @@ const PostCreator = () => {
     const post = useSelector(state => state.posts.choosedPost);
     
     useEffect(()=> {
-        if(id) {
+        if(id && post) {
             const {title, fullText, description} = post;
             const updateFields = async () => {
                 setTitle(title);
