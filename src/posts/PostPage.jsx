@@ -8,6 +8,7 @@ import {clearSelectedUser, findSelectedUser} from '../users/users.actions.js';
 import User from '../users/User.jsx'
 import './PostPage.scss';
 import { CHANGEIMAGE_WATCHER, DELETEPOST_WATCHER, GETPOSTBYID_WATCHER, LIKEPOST_WATCHER } from './posts.actiontypes.js';
+import { FINDSELECTEDUSER_WATCHER } from '../users/users.actiontypes.js';
 
 const PostPage = () => {
     const history = useHistory();
@@ -30,7 +31,11 @@ const PostPage = () => {
 
     useEffect(()=> {
         if (postData!== null) {
-            dispatch(findSelectedUser(postData.postedBy));
+            // dispatch(findSelectedUser(postData.postedBy));
+            dispatch({type: FINDSELECTEDUSER_WATCHER, payload: {
+                userId: postData.postedBy,
+            }});
+            
         } 
     }, [postData, dispatch]);
 

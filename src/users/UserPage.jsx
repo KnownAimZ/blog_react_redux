@@ -7,6 +7,7 @@ import {getPostsByUserId, clearPosts} from '../posts/posts.actions.js';
 import PostList from '../posts/PostList.jsx';
 import './UserPage.scss';
 import { GETPOSTS_BYUSERID_WATCHER } from '../posts/posts.actiontypes.js';
+import { FINDSELECTEDUSER_WATCHER } from './users.actiontypes.js';
 
 const UserPage = () => {
     const {id} = useParams();
@@ -19,7 +20,10 @@ const UserPage = () => {
         if(myUser && id === myUser._id) {
             history.push('/lc');
         }
-        dispatch(findSelectedUser(id));
+        // dispatch(findSelectedUser(id));
+        dispatch({type: FINDSELECTEDUSER_WATCHER, payload: {
+            userId: id,
+        }});
         // dispatch(getPostsByUserId(id));
         dispatch({type: GETPOSTS_BYUSERID_WATCHER, payload: {
             userId: id,

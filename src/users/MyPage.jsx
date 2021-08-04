@@ -7,6 +7,7 @@ import {clearPosts} from '../posts/posts.actions.js';
 import {authLogout} from '../auth/auth.actions.js'
 import PostList from '../posts/PostList.jsx';
 import { GETPOSTS_BYUSERID_WATCHER } from '../posts/posts.actiontypes.js';
+import { CHANGEAVATAR_WATCHER, CHANGENAME_WATCHER, DELETEUSER_WATCHER, GETUSERBYTOKEN_WATCHER } from './users.actiontypes.js';
 
 const MyPage = () => {
     const dispatch = useDispatch();
@@ -16,7 +17,10 @@ const MyPage = () => {
 
     useEffect(()=>{
         if(token) {
-            dispatch(getUserByToken(token));                      
+            // dispatch(getUserByToken(token));
+            dispatch({type:GETUSERBYTOKEN_WATCHER, payload: {
+                token
+            }});                      
         } 
         return ()=> {
             dispatch(clearPosts());
@@ -36,10 +40,14 @@ const MyPage = () => {
     const handleDeleteUser = () => {
         let choose = window.confirm("Are you sure?");
         if (choose) {
-            dispatch(deleteUser(currentUser._id, token));
-            dispatch(clearMyUser());
-            dispatch(authLogout());
-            alert('user deleted');
+            // dispatch(deleteUser(currentUser._id, token));
+            // dispatch(clearMyUser());
+            // dispatch(authLogout());
+            // alert('user deleted');
+            dispatch({type: DELETEUSER_WATCHER, payload: {
+                id: currentUser._id, 
+                token,
+            }});
             history.push('/login');
         }            
     }
@@ -47,14 +55,25 @@ const MyPage = () => {
     const handleChangeName = () => {
         const name = prompt('New name', currentUser.name);
         if (name) {
-            dispatch(changeName(currentUser._id, token, name));
+            // dispatch(changeName(currentUser._id, token, name));
+            dispatch({type: CHANGENAME_WATCHER, payload: {
+                id: currentUser._id, 
+                token, 
+                name
+            }});
         }
     }
 
     const handleImageChange = ({target}) => {
         const formData = new FormData();
         formData.append('avatar', target.files[0]);
-        dispatch(changeAvatar(currentUser._id, token, formData));
+        // dispatch(changeAvatar(currentUser._id, token, formData));
+        dispatch({type: CHANGEAVATAR_WATCHER, payload: {
+            id: currentUser._id, 
+            token, 
+            formData
+        }});
+        
     }
 
     const handleLogout = () => {

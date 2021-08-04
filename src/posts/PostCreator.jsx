@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Link, useHistory, useParams} from 'react-router-dom';
 import {TextField, Button} from '@material-ui/core';
-import {createPost, updatePost} from '../posts/posts.actions.js';
+// import {createPost, updatePost} from '../posts/posts.actions.js';
 import './PostCreator.scss';
 import { CREATEPOST_WATCHER, UPDATEPOST_WATCHER } from './posts.actiontypes.js';
 

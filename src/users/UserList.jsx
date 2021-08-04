@@ -4,6 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import {fetchUsers} from './users.actions.js';
 import User from './User.jsx';
 import './UserList.scss';
+import { FETCHUSERS_WATCHER } from './users.actiontypes.js';
 
 const UserList = () => {
     const dispatch = useDispatch();
@@ -11,7 +12,8 @@ const UserList = () => {
     const [usersSearch, setUsersSearch] = React.useState('');
 
     useEffect(()=>{
-        dispatch(fetchUsers());
+        // dispatch(fetchUsers());
+        dispatch({type: FETCHUSERS_WATCHER});
     }, [dispatch]);
 
     const handleChange = (event) => {
