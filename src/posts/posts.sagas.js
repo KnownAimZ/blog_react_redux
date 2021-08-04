@@ -132,7 +132,7 @@ function* likePost(action) {
 function* changeImage(action) {
     const {payload: {id, token, formData}} = action;
     try {
-        const response = yield call(changeImageRequest);
+        const response = yield call(changeImageRequest, id, token, formData);
         yield put({type: CHANGEIMAGE, payload: response.data});
         const post = yield call(getPostByIdRequest, id);
         yield put({type: GETPOSTBYID, payload: post.data});

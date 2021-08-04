@@ -2,12 +2,12 @@ import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Link, useHistory} from 'react-router-dom';
 import {Avatar, Button} from '@material-ui/core';
-import {getUserByToken, deleteUser, clearMyUser, changeName, changeAvatar} from './users.actions.js';
+import {clearMyUser} from './users.actions.js';
 import {clearPosts} from '../posts/posts.actions.js';
 import {authLogout} from '../auth/auth.actions.js'
 import PostList from '../posts/PostList.jsx';
-import { GETPOSTS_BYUSERID_WATCHER } from '../posts/posts.actiontypes.js';
-import { CHANGEAVATAR_WATCHER, CHANGENAME_WATCHER, DELETEUSER_WATCHER, GETUSERBYTOKEN_WATCHER } from './users.actiontypes.js';
+import {GETPOSTS_BYUSERID_WATCHER} from '../posts/posts.actiontypes.js';
+import {CHANGEAVATAR_WATCHER, CHANGENAME_WATCHER, DELETEUSER_WATCHER, GETUSERBYTOKEN_WATCHER} from './users.actiontypes.js';
 
 const MyPage = () => {
     const dispatch = useDispatch();
@@ -17,7 +17,6 @@ const MyPage = () => {
 
     useEffect(()=>{
         if(token) {
-            // dispatch(getUserByToken(token));
             dispatch({type:GETUSERBYTOKEN_WATCHER, payload: {
                 token
             }});                      
@@ -29,7 +28,6 @@ const MyPage = () => {
 
     useEffect(()=>{
         if (currentUser) {
-            // dispatch(getPostsByUserId(currentUser._id));
             dispatch({type: GETPOSTS_BYUSERID_WATCHER, payload: {
                 userId: currentUser._id
             }});
@@ -40,10 +38,6 @@ const MyPage = () => {
     const handleDeleteUser = () => {
         let choose = window.confirm("Are you sure?");
         if (choose) {
-            // dispatch(deleteUser(currentUser._id, token));
-            // dispatch(clearMyUser());
-            // dispatch(authLogout());
-            // alert('user deleted');
             dispatch({type: DELETEUSER_WATCHER, payload: {
                 id: currentUser._id, 
                 token,
@@ -55,7 +49,6 @@ const MyPage = () => {
     const handleChangeName = () => {
         const name = prompt('New name', currentUser.name);
         if (name) {
-            // dispatch(changeName(currentUser._id, token, name));
             dispatch({type: CHANGENAME_WATCHER, payload: {
                 id: currentUser._id, 
                 token, 
@@ -67,7 +60,6 @@ const MyPage = () => {
     const handleImageChange = ({target}) => {
         const formData = new FormData();
         formData.append('avatar', target.files[0]);
-        // dispatch(changeAvatar(currentUser._id, token, formData));
         dispatch({type: CHANGEAVATAR_WATCHER, payload: {
             id: currentUser._id, 
             token, 

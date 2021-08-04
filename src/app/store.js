@@ -1,5 +1,4 @@
 import {createStore, combineReducers, applyMiddleware} from 'redux';
-import thunk from 'redux-thunk';
 import {persistStore, persistReducer} from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import {composeWithDevTools} from 'redux-devtools-extension';
@@ -21,7 +20,7 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, reducer);
 
-const store = createStore(persistedReducer , composeWithDevTools(applyMiddleware(thunk, sagaMiddleware)));
+const store = createStore(persistedReducer , composeWithDevTools(applyMiddleware(sagaMiddleware)));
 
 export default store;
 

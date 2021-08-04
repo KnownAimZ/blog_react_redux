@@ -14,10 +14,9 @@ export const authReducer = (state = initialState, action) => {
         }
         case AUTH_ERROR: {
             alert(`AUTH_ERROR: ${action.message}`);
+            break;
         }
-        default: {
-            return state;
-        }
+        default:  return state;        
     }
 };
 

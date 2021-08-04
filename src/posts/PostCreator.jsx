@@ -2,10 +2,8 @@ import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Link, useHistory, useParams} from 'react-router-dom';
 import {TextField, Button} from '@material-ui/core';
-// import {createPost, updatePost} from '../posts/posts.actions.js';
 import './PostCreator.scss';
-import { CREATEPOST_WATCHER, UPDATEPOST_WATCHER } from './posts.actiontypes.js';
-
+import {CREATEPOST_WATCHER, UPDATEPOST_WATCHER} from './posts.actiontypes.js';
 
 const PostCreator = () => {
     const dispatch = useDispatch();
@@ -16,21 +14,21 @@ const PostCreator = () => {
     const {id} = useParams();
     const token = useSelector(state => state.auth.token);
     const post = useSelector(state => state.posts.choosedPost);
-
+    
     useEffect(()=> {
         if(id) {
+            const {title, fullText, description} = post;
             const updateFields = async () => {
-                setTitle(post.title);
-                setFullText(post.fullText);
-                setDescription(post.description);
+                setTitle(title);
+                setFullText(fullText);
+                setDescription(description);
             }
             updateFields();
         }
-    },[id]);
+    },[id, post]);
 
     const handlePostCreate = async() => {
         if (title !== '' && fullText !== '' && description !== '' && fullText.length >= 20 && title.length >= 5) {
-            // await dispatch(createPost(token, title, fullText, description));
             await dispatch({type: CREATEPOST_WATCHER, payload: {
                 token,
                 title,
@@ -46,7 +44,6 @@ const PostCreator = () => {
 
     const handlePostUpdate = async() => {
         if (title !== '' && fullText !== '' && description !== '' && fullText.length >= 20 && title.length >= 5) {
-            // await dispatch(updatePost(token, id, title, fullText, description));
             await dispatch({type:UPDATEPOST_WATCHER, payload: {
                 token, 
                 id, 

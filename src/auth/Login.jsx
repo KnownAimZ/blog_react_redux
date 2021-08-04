@@ -30,7 +30,6 @@ const Login = () => {
                 email,
                 password
             }});
-            // await console.log('Handle login work finished');            
         }
         else {
             alert('Error!');

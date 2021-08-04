@@ -3,8 +3,8 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useParams} from 'react-router';
 import {useHistory, Link} from 'react-router-dom';
 import {Button} from '@material-ui/core';
-import {clearSelectedPost, likePost, deletePost, changeImage} from './posts.actions.js';
-import {clearSelectedUser, findSelectedUser} from '../users/users.actions.js';
+import {clearSelectedPost} from './posts.actions.js';
+import {clearSelectedUser} from '../users/users.actions.js';
 import User from '../users/User.jsx'
 import './PostPage.scss';
 import { CHANGEIMAGE_WATCHER, DELETEPOST_WATCHER, GETPOSTBYID_WATCHER, LIKEPOST_WATCHER } from './posts.actiontypes.js';
@@ -31,7 +31,6 @@ const PostPage = () => {
 
     useEffect(()=> {
         if (postData!== null) {
-            // dispatch(findSelectedUser(postData.postedBy));
             dispatch({type: FINDSELECTEDUSER_WATCHER, payload: {
                 userId: postData.postedBy,
             }});
@@ -40,7 +39,6 @@ const PostPage = () => {
     }, [postData, dispatch]);
 
     const handleDeletePost = async() => {
-        // await dispatch(deletePost(token, postData._id));
         await dispatch({type: DELETEPOST_WATCHER, payload: {
             token,
             postId: postData._id
@@ -52,16 +50,12 @@ const PostPage = () => {
         await dispatch({type: LIKEPOST_WATCHER, payload: {
             token,
             postId: id
-        }});
-        // await dispatch({type: GETPOSTBYID_WATCHER, payload: {
-        //     id
-        // }});
+        }});        
     }
 
     const handleImageChange = ({target}) => {
         const formData = new FormData();
         formData.append('image', target.files[0]);
-        // dispatch(changeImage(postData._id, token, formData));
         dispatch({type:CHANGEIMAGE_WATCHER, payload: {
             id: postData._id, 
             token, 

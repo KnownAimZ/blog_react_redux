@@ -15,7 +15,6 @@ const initialState = {
     position: 0,
     postsList: [],
     choosedPost: null,
-    // postToLoad: 10,
 };
 
 export const postsReducer = (state = initialState, action) => {
@@ -29,7 +28,6 @@ export const postsReducer = (state = initialState, action) => {
         case CREATEPOST:
             return {...state}
         case GETPOSTBYID:
-            // console.log(`choosed post: ${Object.values(action.payload)}`)
             return {...state, choosedPost: action.payload};
         case CHANGEIMAGE:
             return {...state, choosedPost: action.payload};
@@ -41,6 +39,7 @@ export const postsReducer = (state = initialState, action) => {
             return {...state, postsList: action.payload};
         case POSTS_ERROR: {
             console.log(action.message);
+            break;
         }
         default:
             return state;

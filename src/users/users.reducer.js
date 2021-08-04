@@ -7,7 +7,7 @@ import {
     CHANGENAME,
     CHANGEAVATAR,
 } from './users.actiontypes.js';
-import { CREATEUSER } from '../auth/auth.actiontypes.js';
+import {CREATEUSER} from '../auth/auth.actiontypes.js';
 
 const initialState = {
     allUsers: [],
