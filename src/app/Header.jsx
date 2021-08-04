@@ -13,14 +13,17 @@ const Header = () => {
                 <Link to="/users"><li>All users</li></Link>
                 <Link to="/posts"><li>All posts</li></Link>
                 {token === null &&
-                <>
+                <>                    
                     <Link to="/login" style = {{marginLeft:'auto'}}><li>Login</li></Link>
                     <Link to="/register"><li>Register</li></Link>
                 </>
                 }
                 {
-                token !== null && 
-                <Link to="/lc" style = {{marginLeft:'auto'}}><li>Account {<AccountCircleIcon />}</li></Link>
+                token !== null &&
+                <>
+                    <Link to="/multiple"><li>Multiple</li></Link> 
+                    <Link to="/lc" style = {{marginLeft:'auto'}}><li>Account {<AccountCircleIcon />}</li></Link>
+                </>                
                 }
             </ul>
         </div>
