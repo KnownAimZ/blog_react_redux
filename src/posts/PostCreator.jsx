@@ -4,6 +4,7 @@ import {Link, useHistory, useParams} from 'react-router-dom';
 import {TextField, Button} from '@material-ui/core';
 import {createPost, updatePost} from '../posts/posts.actions.js';
 import './PostCreator.scss';
+import { CREATEPOST_WATCHER, UPDATEPOST_WATCHER } from './posts.actiontypes.js';
 
 
 const PostCreator = () => {
@@ -25,11 +26,17 @@ const PostCreator = () => {
             }
             updateFields();
         }
-    },[id, post.title, post.fullText, post.description]);
+    },[id]);
 
     const handlePostCreate = async() => {
         if (title !== '' && fullText !== '' && description !== '' && fullText.length >= 20 && title.length >= 5) {
-            await dispatch(createPost(token, title, fullText, description));
+            // await dispatch(createPost(token, title, fullText, description));
+            await dispatch({type: CREATEPOST_WATCHER, payload: {
+                token,
+                title,
+                fullText,
+                description,
+            }});
             history.push('/lc');
         }
         else {
@@ -39,7 +46,15 @@ const PostCreator = () => {
 
     const handlePostUpdate = async() => {
         if (title !== '' && fullText !== '' && description !== '' && fullText.length >= 20 && title.length >= 5) {
-            await dispatch(updatePost(token, id, title, fullText, description));
+            // await dispatch(updatePost(token, id, title, fullText, description));
+            await dispatch({type:UPDATEPOST_WATCHER, payload: {
+                token, 
+                id, 
+                title, 
+                fullText, 
+                description
+            }});
+            
             history.goBack();
         }
         else {

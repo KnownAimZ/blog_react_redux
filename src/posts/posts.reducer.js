@@ -7,7 +7,8 @@ import {
     CHANGEIMAGE,
     CLEARSELECTEDPOST,
     UPDATEPOST,
-    REORDERPOSTS
+    REORDERPOSTS,
+    POSTS_ERROR
 } from './posts.actiontypes.js';
 
 const initialState = {
@@ -28,15 +29,19 @@ export const postsReducer = (state = initialState, action) => {
         case CREATEPOST:
             return {...state}
         case GETPOSTBYID:
+            // console.log(`choosed post: ${Object.values(action.payload)}`)
             return {...state, choosedPost: action.payload};
         case CHANGEIMAGE:
             return {...state, choosedPost: action.payload};
         case CLEARSELECTEDPOST:
-            return {...state, choosedPost: null}
+            return {...state, choosedPost: null};
         case UPDATEPOST:
             return {...state, choosedPost: action.payload};
         case REORDERPOSTS: 
-            return {...state, postsList: action.payload}
+            return {...state, postsList: action.payload};
+        case POSTS_ERROR: {
+            console.log(action.message);
+        }
         default:
             return state;
     }

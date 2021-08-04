@@ -3,9 +3,10 @@ import {useDispatch, useSelector} from 'react-redux';
 import {Link, useHistory} from 'react-router-dom';
 import {Avatar, Button} from '@material-ui/core';
 import {getUserByToken, deleteUser, clearMyUser, changeName, changeAvatar} from './users.actions.js';
-import {clearPosts, getPostsByUserId} from '../posts/posts.actions.js';
+import {clearPosts} from '../posts/posts.actions.js';
 import {authLogout} from '../auth/auth.actions.js'
 import PostList from '../posts/PostList.jsx';
+import { GETPOSTS_BYUSERID_WATCHER } from '../posts/posts.actiontypes.js';
 
 const MyPage = () => {
     const dispatch = useDispatch();
@@ -24,7 +25,11 @@ const MyPage = () => {
 
     useEffect(()=>{
         if (currentUser) {
-            dispatch(getPostsByUserId(currentUser._id));
+            // dispatch(getPostsByUserId(currentUser._id));
+            dispatch({type: GETPOSTS_BYUSERID_WATCHER, payload: {
+                userId: currentUser._id
+            }});
+
         }
     },[currentUser, dispatch]);
 

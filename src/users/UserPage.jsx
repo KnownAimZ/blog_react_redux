@@ -6,6 +6,7 @@ import {findSelectedUser, clearSelectedUser} from './users.actions.js';
 import {getPostsByUserId, clearPosts} from '../posts/posts.actions.js';
 import PostList from '../posts/PostList.jsx';
 import './UserPage.scss';
+import { GETPOSTS_BYUSERID_WATCHER } from '../posts/posts.actiontypes.js';
 
 const UserPage = () => {
     const {id} = useParams();
@@ -19,7 +20,10 @@ const UserPage = () => {
             history.push('/lc');
         }
         dispatch(findSelectedUser(id));
-        dispatch(getPostsByUserId(id));
+        // dispatch(getPostsByUserId(id));
+        dispatch({type: GETPOSTS_BYUSERID_WATCHER, payload: {
+            userId: id,
+        }});
         return ()=> {
             dispatch(clearSelectedUser());
             dispatch(clearPosts());

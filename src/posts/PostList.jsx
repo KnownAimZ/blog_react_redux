@@ -2,14 +2,14 @@ import React,{useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {DragDropContext} from 'react-beautiful-dnd';
 import {Button, Switch} from '@material-ui/core';
-import {
-    getPostsByPosition, 
+import { 
     setPosition, 
     clearPosts,
     reorderPosts,
 } from './posts.actions.js';
 import List from './List.jsx';
 import './PostList.scss';
+import { GETPOSTS_BYPOSITION_WATCHER } from './posts.actiontypes.js';
 
 const PostList = ({withControls, title}) => {
     const dispatch = useDispatch();
@@ -19,9 +19,11 @@ const PostList = ({withControls, title}) => {
 
     useEffect(() => {
         if(withControls) {
-            dispatch(getPostsByPosition(position));
+            dispatch({type: GETPOSTS_BYPOSITION_WATCHER, payload: {
+                position,
+            }});
+            setFirstListSize(5);
         }
-        setFirstListSize(5);
     },[position, dispatch, withControls]);
 
     useEffect(()=> {

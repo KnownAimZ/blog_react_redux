@@ -3,10 +3,11 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useParams} from 'react-router';
 import {useHistory, Link} from 'react-router-dom';
 import {Button} from '@material-ui/core';
-import {getPostById, clearSelectedPost, likePost, deletePost, changeImage} from './posts.actions.js';
+import {clearSelectedPost, likePost, deletePost, changeImage} from './posts.actions.js';
 import {clearSelectedUser, findSelectedUser} from '../users/users.actions.js';
 import User from '../users/User.jsx'
 import './PostPage.scss';
+import { CHANGEIMAGE_WATCHER, DELETEPOST_WATCHER, GETPOSTBYID_WATCHER, LIKEPOST_WATCHER } from './posts.actiontypes.js';
 
 const PostPage = () => {
     const history = useHistory();
@@ -18,7 +19,9 @@ const PostPage = () => {
     const token = useSelector(state => state.auth.token);
 
     useEffect(()=> {
-        dispatch(getPostById(id));
+        dispatch({type: GETPOSTBYID_WATCHER, payload: {
+            id
+        }});
         return ()=> {
             dispatch(clearSelectedUser());
             dispatch(clearSelectedPost());
@@ -32,19 +35,33 @@ const PostPage = () => {
     }, [postData, dispatch]);
 
     const handleDeletePost = async() => {
-        await dispatch(deletePost(token, postData._id));
+        // await dispatch(deletePost(token, postData._id));
+        await dispatch({type: DELETEPOST_WATCHER, payload: {
+            token,
+            postId: postData._id
+        }});
         history.goBack();
     }
 
     const handleLikePost = async() => {
-        await dispatch(likePost(token, postData._id));
-        await dispatch(getPostById(id));
+        await dispatch({type: LIKEPOST_WATCHER, payload: {
+            token,
+            postId: id
+        }});
+        // await dispatch({type: GETPOSTBYID_WATCHER, payload: {
+        //     id
+        // }});
     }
 
     const handleImageChange = ({target}) => {
         const formData = new FormData();
         formData.append('image', target.files[0]);
-        dispatch(changeImage(postData._id, token, formData));
+        // dispatch(changeImage(postData._id, token, formData));
+        dispatch({type:CHANGEIMAGE_WATCHER, payload: {
+            id: postData._id, 
+            token, 
+            formData
+        }});
     }
 
     if (postData === null) {
@@ -59,7 +76,7 @@ const PostPage = () => {
             <h4>{postData.description}</h4>
             <p>{postData.fullText}</p>
             <h4>{postData.dateCreated}</h4>
-            <h4>Likes: {postData.likes.length}</h4>
+            {postData.likes && <h4>Likes: {postData.likes.length}</h4>}
             <h4>Posted by:</h4>
             <User {...postedBy}/>
             { token !== null &&  
