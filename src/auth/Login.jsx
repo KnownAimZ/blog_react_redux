@@ -2,8 +2,8 @@ import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useHistory, Link} from 'react-router-dom';
 import {TextField, Button} from '@material-ui/core';
-import {authLogin} from './auth.actions.js';
 import './Login.scss';
+import { LOGIN_WATCHER } from './auth.actiontypes.js';
 
 const Login = () => {
     const dispatch = useDispatch();
@@ -26,7 +26,11 @@ const Login = () => {
     };
     const handleLogin = async() => {
         if(email.includes('@') && password.length > 4) {
-            await dispatch(authLogin(email, password));            
+            await dispatch({type: LOGIN_WATCHER, payload: {
+                email,
+                password
+            }});
+            // await console.log('Handle login work finished');            
         }
         else {
             alert('Error!');

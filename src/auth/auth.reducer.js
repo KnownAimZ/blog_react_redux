@@ -1,4 +1,4 @@
-import {LOGIN, LOGOUT} from "./auth.actiontypes.js";
+import {LOGIN, LOGOUT, AUTH_ERROR} from "./auth.actiontypes.js";
 
 const initialState = {
     token: null,
@@ -9,11 +9,15 @@ export const authReducer = (state = initialState, action) => {
         case LOGOUT: {
             return {...state, token: null};
         }
-        case LOGIN: {
-            return {...state, token: action.payload}
+        case LOGIN: {           
+            return {...state, token: action.payload};
         }
-        default:
+        case AUTH_ERROR: {
+            alert(`AUTH_ERROR: ${action.message}`);
+        }
+        default: {
             return state;
+        }
     }
 };
 

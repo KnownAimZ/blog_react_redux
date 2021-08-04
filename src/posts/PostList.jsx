@@ -2,7 +2,12 @@ import React,{useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {DragDropContext} from 'react-beautiful-dnd';
 import {Button, Switch} from '@material-ui/core';
-import {getPostsByPosition, setPosition, clearPosts} from './posts.actions.js';
+import {
+    getPostsByPosition, 
+    setPosition, 
+    clearPosts,
+    reorderPosts,
+} from './posts.actions.js';
 import List from './List.jsx';
 import './PostList.scss';
 
@@ -58,7 +63,7 @@ const PostList = ({withControls, title}) => {
             return;
         }
         const newList = reorder(result.source.index, result.destination.index, result.source, result.destination);
-        dispatch(postActions.reorderPosts(newList));
+        dispatch(reorderPosts(newList));
     }
 
     if (!withControls && postsList.length === 0) {

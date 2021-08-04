@@ -10,7 +10,7 @@ import PostList from '../posts/PostList.jsx';
 const MyPage = () => {
     const dispatch = useDispatch();
     const history = useHistory();
-    const token = useSuserActionselector(state => state.auth.token);
+    const token = useSelector(state => state.auth.token);
     const currentUser = useSelector(state => state.users.myUser);
 
     useEffect(()=>{

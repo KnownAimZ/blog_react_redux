@@ -1,3 +1,6 @@
-export const LOGIN = "AUTH/LOGIN";
-export const LOGOUT = "AUTH/LOGOUT";
 export const CREATEUSER = "AUTH/CREATEUSER";
+export const CREATEUSER_WATCHER = "AUTH/CREATEUSER_WATCHER";
+export const LOGIN = "AUTH/LOGIN";
+export const LOGIN_WATCHER = "AUTH/LOGIN_WATCHER";
+export const LOGOUT = "AUTH/LOGOUT";
+export const AUTH_ERROR = "AUTH/ERROR";
