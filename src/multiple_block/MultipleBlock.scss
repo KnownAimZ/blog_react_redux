@@ -1,0 +1,8 @@
+.MultipleBlock {
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    width: 100%;
+    height: calc(100vh - 85px);
+}

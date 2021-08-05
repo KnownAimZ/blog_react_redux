@@ -9,7 +9,7 @@ import MyPage from '../users/MyPage';
 import PostCreator from '../posts/PostCreator';
 import PostPage from '../posts/PostPage';
 import './App.scss';
-import ClassCreatePost from '../multiple_block/ClassCreatePost.jsx';
+import MultipleBlock from '../multiple_block/MultipleBlock.jsx';
 
 function App() {
   return (
@@ -52,7 +52,7 @@ function App() {
               <Redirect to="/login" />
           </Route>
           <Route exact path="/multiple">
-            <ClassCreatePost/>
+            <MultipleBlock/>
           </Route> 
         </Switch>   
         </div>             
