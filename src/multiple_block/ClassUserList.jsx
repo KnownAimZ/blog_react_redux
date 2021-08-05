@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import TextField from '@material-ui/core/TextField';
+import List from 'react-virtualized/dist/commonjs/List';
 import User from '../users/User';
 import {FETCHUSERS_WATCHER} from '../users/users.actiontypes';
 import './ClassUserList.scss';
@@ -33,7 +34,9 @@ class ClassUserList extends Component {
                 onChange={this.handleUserSearch}
                 variant="outlined"
                 />
+                {/* <List rowCount={this.props.allUsers.length} height={7} rowHeight={20} width={100} rowRenderer={()=>{}} > */}
                 {this.props.allUsers.filter(user =>{ return user['email'].includes(this.state.userSearch)}).map(user => (<User key={user._id} {...user} />)) }
+                {/* </List> */}
             </div>
         );
     }
