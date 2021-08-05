@@ -1,14 +1,12 @@
+@import '../app/variables.scss';
 .ClassUserList {
     box-sizing: border-box;
-    width: 50%;
-    height: calc((100vh - 85px)/2);
-    // display: flex;
-    // flex-direction: column;
-    // // justify-content: center;
-    // align-items: center;
+    width: calc(100% - var(--x-position));
+    height: calc(var(--y-position));
     padding: 10px;
     border: 1px solid black;
     overflow: scroll;
+    // display: inline-block;
     >button {
         font-size: 22px;
         margin-top: 15px;

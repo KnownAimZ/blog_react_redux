@@ -1,8 +1,9 @@
 .ClassPostList {
     box-sizing: border-box;
-    width: 50%;
-    height: calc((100vh - 85px)/2);
+    width: calc(var(--x-position));
+    height: calc(100% - var(--y-position));
     padding: 10px;
     border: 1px solid black;
     overflow: scroll;
+    // display: inline-block;
 }

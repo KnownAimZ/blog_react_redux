@@ -2,11 +2,11 @@ import React, {Component} from "react";
 import ClassCreatePost from "./ClassCreatePost";
 import ClassUserList from "./ClassUserList";
 import ClassTestPage from "./ClassTestPage";
-import './MultipleBlock.scss';
 import ClassPostList from "./ClassPostList";
+import ControlPoint from "./ControlPoint";
+import './MultipleBlock.scss';
 
 class MultipleBlock extends Component {
-
     render() {
         return (
             <div className="MultipleBlock">
@@ -14,6 +14,7 @@ class MultipleBlock extends Component {
                 <ClassUserList/>
                 <ClassPostList/>
                 <ClassTestPage/>
+                <ControlPoint/>
             </div>
         );
     }

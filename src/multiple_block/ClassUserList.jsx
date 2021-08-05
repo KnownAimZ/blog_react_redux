@@ -23,6 +23,7 @@ class ClassUserList extends Component {
     }
 
     render() {
+        console.count();
         return (
             <div className="ClassUserList">
                 <h2>User List</h2>
@@ -32,7 +33,7 @@ class ClassUserList extends Component {
                 onChange={this.handleUserSearch}
                 variant="outlined"
                 />
-                {this.props.allUsers.filter(user => user['email'].includes(this.state.userSearch)).map(user => (<User key={user._id} {...user} />)) }
+                {this.props.allUsers.filter(user =>{ return user['email'].includes(this.state.userSearch)}).map(user => (<User key={user._id} {...user} />)) }
             </div>
         );
     }

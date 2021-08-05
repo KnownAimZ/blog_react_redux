@@ -1,13 +1,16 @@
+@import '../app/variables.scss';
 .ClassCreatePost {
     box-sizing: border-box;
-    width: 50%;
-    height: calc((100vh - 85px)/2);
+    width: calc(var(--x-position));
+    height: calc(var(--y-position));
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 10px;
     border: 1px solid black;
+    overflow: scroll;
+    // display: inline-block;
     >button {
         font-size: 22px;
         margin-top: 15px;

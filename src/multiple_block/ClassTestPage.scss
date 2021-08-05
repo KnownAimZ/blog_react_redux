@@ -1,13 +1,15 @@
 .ClassTestPage {
     box-sizing: border-box;
-    width: 50%;
-    height: calc((100vh - 85px)/2);
+    width: calc(100% - var(--x-position));
+    height: calc(100% - var(--y-position));
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 10px;
     border: 1px solid black;
+    overflow: scroll;
+    // display: inline-block;
     >h2 {
        font-size: 36px;
     }
