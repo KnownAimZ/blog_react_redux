@@ -1,6 +1,7 @@
 import {call, put, takeLatest} from 'redux-saga/effects';
 import axios from 'axios';
 import {POSTS, POSTS_LIKE, POSTS_UPLOAD} from "../app/API";
+import { setPosition } from './posts.actions';
 import {
     GETPOSTS, 
     POSTS_ERROR, 
@@ -18,6 +19,8 @@ import {
     CHANGEIMAGE_WATCHER,
     UPDATEPOST,
     UPDATEPOST_WATCHER,
+    UPDATEPOSITION_AND_RERENDER,
+    SETPOSITION,
 } from './posts.actiontypes';
 
 const postByPositionRequest = position => axios.get(`${POSTS}?skip=${position}`);
@@ -155,6 +158,19 @@ function* updatePost(action) {
     }
 }
 
+function* updatePositionAndRerender(action) {
+    const {payload: {position}} = action;
+    try {
+        console.log(position);
+        yield put({type:SETPOSITION, payload: position});
+        const posts = yield call(postByPositionRequest, position);
+        yield put({type: GETPOSTS, payload: posts.data});
+    }
+    catch (err) {
+        yield put({type: POSTS_ERROR, message: 'Positon update error'});
+    }
+}
+
 export function* postsWatcher () {
     yield takeLatest(GETPOSTS_BYPOSITION_WATCHER, getPostsByPosition);
     yield takeLatest(GETPOSTS_BYUSERID_WATCHER, getPostsByUserId);
@@ -164,4 +180,5 @@ export function* postsWatcher () {
     yield takeLatest(LIKEPOST_WATCHER, likePost);
     yield takeLatest(CHANGEIMAGE_WATCHER, changeImage);
     yield takeLatest(UPDATEPOST_WATCHER, updatePost);
+    yield takeLatest(UPDATEPOSITION_AND_RERENDER, updatePositionAndRerender);
 }

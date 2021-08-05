@@ -3,10 +3,6 @@ import {connect} from 'react-redux';
 import './ClassTestPage.scss';
 
 class ClassTestPage extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return (
             <div className="ClassTestPage">
