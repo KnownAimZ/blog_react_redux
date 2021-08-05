@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {clearPosts, reorderPosts, setPosition} from '../posts/posts.actions';
+import {clearPosts, reorderPosts} from '../posts/posts.actions';
 import {GETPOSTS_BYPOSITION_WATCHER, UPDATEPOSITION_AND_RERENDER} from '../posts/posts.actiontypes';
 import {DragDropContext} from 'react-beautiful-dnd';
 import {Button, Switch} from '@material-ui/core';
@@ -80,7 +80,6 @@ class ClassPostList extends Component {
     }
 
     render() {
-        // console.log(`position: ${this.props.position}, postsList: ${this.props.postsList}`);
         return (
         <div className="ClassPostList">            
         <DragDropContext onDragEnd={this.onDragEnd}>

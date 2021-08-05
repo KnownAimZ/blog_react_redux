@@ -1,7 +1,6 @@
 import {call, put, takeLatest} from 'redux-saga/effects';
 import axios from 'axios';
 import {POSTS, POSTS_LIKE, POSTS_UPLOAD} from "../app/API";
-import { setPosition } from './posts.actions';
 import {
     GETPOSTS, 
     POSTS_ERROR, 
@@ -161,7 +160,7 @@ function* updatePost(action) {
 function* updatePositionAndRerender(action) {
     const {payload: {position}} = action;
     try {
-        console.log(position);
+        // console.log(position);
         yield put({type:SETPOSITION, payload: position});
         const posts = yield call(postByPositionRequest, position);
         yield put({type: GETPOSTS, payload: posts.data});
