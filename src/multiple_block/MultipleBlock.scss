@@ -1,3 +1,16 @@
+@import '../app/variables.scss';
+.control_point {
+    position: absolute;
+    top: var(--y-position);
+    left: var(--x-position);
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    background-color: brown;
+    border: 2px solid black;
+    cursor: pointer;
+}
 .MultipleBlock {
     box-sizing: border-box;
     display: flex;

@@ -1,30 +1,41 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import {connect} from 'react-redux';
 import TextField from '@material-ui/core/TextField';
-import List from 'react-virtualized/dist/commonjs/List';
+import {AutoSizer, List } from 'react-virtualized';
 import User from '../users/User';
 import {FETCHUSERS_WATCHER} from '../users/users.actiontypes';
 import './ClassUserList.scss';
 
-class ClassUserList extends Component {
+class ClassUserList extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            userSearch: ''
+            userSearch: '',
+            allUsers: [],
         };
         this.handleUserSearch = this.handleUserSearch.bind(this);
+        this.filterUsers = this.filterUsers.bind(this);
     }
 
     componentDidMount() {
         this.props.loadUsers();
+        this.filterUsers();
     }
 
     handleUserSearch(event) { 
         this.setState({userSearch: event.target.value});
+        this.filterUsers();
+    }
+
+    filterUsers() {
+        // if(this.props.allUsers.length) {
+            this.setState({
+                allUsers: this.props.allUsers.filter(user =>{ return user['email'].includes(this.state.userSearch)})
+            });
+        // } 
     }
 
     render() {
-        console.count();
         return (
             <div className="ClassUserList">
                 <h2>User List</h2>
@@ -34,9 +45,26 @@ class ClassUserList extends Component {
                 onChange={this.handleUserSearch}
                 variant="outlined"
                 />
-                {/* <List rowCount={this.props.allUsers.length} height={7} rowHeight={20} width={100} rowRenderer={()=>{}} > */}
-                {this.props.allUsers.filter(user =>{ return user['email'].includes(this.state.userSearch)}).map(user => (<User key={user._id} {...user} />)) }
-                {/* </List> */}
+                {this.state.allUsers &&
+                <AutoSizer>
+                    {({width, height}) => (
+                        <List 
+                        rowCount={this.state.allUsers.length} 
+                        width={width - 10} 
+                        height={height- 170} 
+                        rowHeight={82} 
+                        rowRenderer={({key, index, style, parent})=>{
+                            const user = this.state.allUsers[index];
+                            return (
+                                <div key={key} style={style}>
+                                    <User {...user}/>
+                                </div>
+                            );
+                        }} 
+                        />
+                    )}                    
+                </AutoSizer>
+                }
             </div>
         );
     }
