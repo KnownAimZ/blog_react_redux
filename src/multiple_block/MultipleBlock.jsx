@@ -13,7 +13,36 @@ class MultipleBlock extends Component {
             isMoving: false
         };
         this.setIsMoving = this.setIsMoving.bind(this);
-        this.moveControl = this.moveControl.bind(this);        
+        this.moveControl = this.moveControl.bind(this);
+        this.resizeWindow = this.resizeWindow.bind(this);        
+    }
+
+    componentDidMount() {
+        window.addEventListener('resize', this.resizeWindow);
+        this.setVars('50%','50%');
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.resizeWindow);
+    }
+
+    resizeWindow(event) {
+       if(!this.compareWidth(event.target.innerWidth)) {
+           this.setVars(`${event.target.innerWidth-100}px`, null);
+       }
+       if(!this.compareHeight(event.target.innerHeight)) {
+           this.setVars(null, `${event.target.innerHeight-100}px`);
+       }
+    }
+
+    compareWidth(width) {
+        const x = getComputedStyle(document.documentElement).getPropertyValue('--x-position');
+        return width > parseInt(x) + 100;
+    }
+
+    compareHeight(height) {
+        const y = getComputedStyle(document.documentElement).getPropertyValue('--y-position');
+        return height > parseInt(y) + 100;
     }
 
     setIsMoving(value) {
@@ -24,16 +53,24 @@ class MultipleBlock extends Component {
 
     moveControl(event) {
         if(this.state.isMoving) {
-            console.log();
             const {clientX, clientY} = event;
-            this.setVars(`${clientX}px`, `${clientY-64}px`);
-            
+            if
+            (clientX + 100 <= window.innerWidth  &&
+             clientX >= 100 &&
+             clientY + 100 <= window.innerHeight  &&
+             clientY >= 164) {
+                this.setVars(`${clientX}px`, `${clientY-64}px`);
+            }         
         }         
     }
 
     setVars(x, y) {
-        document.documentElement.style.setProperty('--x-position', x);
-        document.documentElement.style.setProperty('--y-position', y);
+        if(x) {
+            document.documentElement.style.setProperty('--x-position', x);
+        }
+        if(y) {
+            document.documentElement.style.setProperty('--y-position', y);
+        }       
     }    
 
     render() {

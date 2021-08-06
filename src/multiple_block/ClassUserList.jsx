@@ -28,11 +28,9 @@ class ClassUserList extends PureComponent {
     }
 
     filterUsers() {
-        // if(this.props.allUsers.length) {
-            this.setState({
-                allUsers: this.props.allUsers.filter(user =>{ return user['email'].includes(this.state.userSearch)})
-            });
-        // } 
+        this.setState({
+            allUsers: this.props.allUsers.filter(user =>{ return user['email'].includes(this.state.userSearch)})
+        });
     }
 
     render() {
@@ -53,7 +51,7 @@ class ClassUserList extends PureComponent {
                         width={width - 10} 
                         height={height- 170} 
                         rowHeight={82} 
-                        rowRenderer={({key, index, style, parent})=>{
+                        rowRenderer={({key, index, style})=>{
                             const user = this.state.allUsers[index];
                             return (
                                 <div key={key} style={style}>
