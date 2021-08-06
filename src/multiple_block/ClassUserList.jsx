@@ -29,7 +29,7 @@ class ClassUserList extends PureComponent {
 
     filterUsers() {
         this.setState({
-            allUsers: this.props.allUsers.filter(user =>{ return user['email'].includes(this.state.userSearch)})
+            allUsers: this.props.allUsers.filter(user =>{ return user.email.includes(this.state.userSearch)})
         });
     }
 

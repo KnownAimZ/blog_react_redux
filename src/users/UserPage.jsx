@@ -39,7 +39,7 @@ const UserPage = () => {
     <div className="Page">
         <div className="userBlock">
             <div className='userInfo'>
-                <Avatar src={currentUser.avatar} variant="rounded" style = {{width: '100px', height: '100px'}}/>
+                <Avatar src={`https://nodejs-test-api-blog.herokuapp.com/users${currentUser.avatar}` || null} variant="rounded" style = {{width: '100px', height: '100px'}}/>
                 <h2>{currentUser.name}</h2>
                 <p>{currentUser.email}</p>
                 <p>{currentUser.dateCreated}</p>

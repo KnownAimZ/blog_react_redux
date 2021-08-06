@@ -55,10 +55,10 @@ class MultipleBlock extends Component {
         if(this.state.isMoving) {
             const {clientX, clientY} = event;
             if
-            (clientX + 100 <= window.innerWidth  &&
-             clientX >= 100 &&
-             clientY + 100 <= window.innerHeight  &&
-             clientY >= 164) {
+            (clientX + 80 <= window.innerWidth  &&
+             clientX >= 80 &&
+             clientY + 80 <= window.innerHeight  &&
+             clientY >= 144) {
                 this.setVars(`${clientX}px`, `${clientY-64}px`);
             }         
         }         
