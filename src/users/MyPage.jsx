@@ -8,6 +8,7 @@ import {authLogout} from '../auth/auth.actions.js'
 import PostList from '../posts/PostList.jsx';
 import {GETPOSTS_BYUSERID_WATCHER} from '../posts/posts.actiontypes.js';
 import {CHANGEAVATAR_WATCHER, CHANGENAME_WATCHER, DELETEUSER_WATCHER, GETUSERBYTOKEN_WATCHER} from './users.actiontypes.js';
+import PostChart from '../charts/PostChart.jsx';
 
 const MyPage = () => {
     const dispatch = useDispatch();
@@ -118,6 +119,7 @@ const MyPage = () => {
                         Logout
                     </Button>
                 </div>
+                <PostChart />
                 <PostList title={`${currentUser.name}'s posts`} />
             </div> 
         </div>);

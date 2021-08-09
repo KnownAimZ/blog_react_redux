@@ -8,6 +8,7 @@ import PostList from '../posts/PostList.jsx';
 import './UserPage.scss';
 import {GETPOSTS_BYUSERID_WATCHER} from '../posts/posts.actiontypes.js';
 import {FINDSELECTEDUSER_WATCHER} from './users.actiontypes.js';
+import PostChart from '../charts/PostChart.jsx';
 
 const UserPage = () => {
     const {id} = useParams();
@@ -44,6 +45,7 @@ const UserPage = () => {
                 <p>{currentUser.email}</p>
                 <p>{currentUser.dateCreated}</p>
             </div>
+            <PostChart />
             <PostList title={`${currentUser.name}'s posts`} />
         </div>  
     </div>);

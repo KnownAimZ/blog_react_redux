@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import TextField from '@material-ui/core/TextField';
 import User from './User.jsx';
+import UserChart from '../charts/UserChart.jsx';
 import {FETCHUSERS_WATCHER} from './users.actiontypes.js';
 import './UserList.scss';
 
@@ -17,11 +18,12 @@ const UserList = () => {
     const handleChange = (event) => {
         setUsersSearch(event.target.value);
     };
-
+    // console.log(`userlist in list: ${users}`)
     return (
         <div className="Page">
             <div className="UserList">
                 <h2>User List</h2>
+                {users && <UserChart userList={users} />}
                 <TextField          
                 label="Email"
                 value={usersSearch}

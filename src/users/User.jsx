@@ -11,7 +11,6 @@ const User = ({_id, name,avatar,email,dateCreated}) => {
             <h3>User not loaded</h3>
         );
     }
-    console.log(avatar);
     return (
         <Link className='User' to={`/users/${_id}`}>
             <Card variant='outlined' style={{ margin:'5px 0', borderWidth: '3px'}}>
