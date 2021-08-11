@@ -1,10 +1,9 @@
 import {call, put, takeLatest} from 'redux-saga/effects';
-import axios from 'axios';
 import {LOGIN, CREATEUSER, AUTH_ERROR, LOGIN_WATCHER, CREATEUSER_WATCHER} from './auth.actiontypes.js';
-import {AUTH, USERS} from '../app/API.js';  
+import API from '../app/API.js';  
 
-const loginRequest = (email, password) => axios.post(AUTH, {email,password});
-const createUserRequest = (email, password, name) => axios.post(USERS, {email, password, name});
+const loginRequest = (email, password) => API.post('auth/', {email,password});
+const createUserRequest = (email, password, name) => API.post('users/', {email, password, name});
 
 function* authLogin (action) {
     try {        

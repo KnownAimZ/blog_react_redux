@@ -1,6 +1,5 @@
 import {call, put, takeLatest} from 'redux-saga/effects';
-import axios from 'axios';
-import {POSTS, POSTS_LIKE, POSTS_UPLOAD} from "../app/API";
+import API from "../app/API";
 import {
     GETPOSTS, 
     POSTS_ERROR, 
@@ -22,10 +21,12 @@ import {
     SETPOSITION,
 } from './posts.actiontypes';
 
-const postByPositionRequest = position => axios.get(`${POSTS}?skip=${position}`);
-const postByUserIdRequest = userId => axios.get(`${POSTS}?postedBy=${userId}`);
+// API.defaults.baseURL = 
+
+const postByPositionRequest = position => API.get(`posts?skip=${position}`);
+const postByUserIdRequest = userId => API.get(`posts?postedBy=${userId}`);
 const createPostRequest = (token, title, fullText, description) => 
-    axios.post(POSTS,
+API.post('posts',
     {
         title,
         fullText,
@@ -34,16 +35,16 @@ const createPostRequest = (token, title, fullText, description) =>
     {
         headers: { Authorization: `Bearer ${token}` },           
 });
-const getPostByIdRequest = id => axios.get(`${POSTS}${id}`);
-const deletePostRequest = (token, postId) => axios.delete(`${POSTS}${postId}`,{
+const getPostByIdRequest = id => API.get(`posts/${id}`);
+const deletePostRequest = (token, postId) => API.delete(`posts/${postId}`,{
     headers: { Authorization: `Bearer ${token}` }
 });
-const likePostRequest = (token, postId) => axios.put(`${POSTS_LIKE}${postId}`, 
+const likePostRequest = (token, postId) => API.put(`posts/like/${postId}`, 
 { hello: 'world' },      
 {
     headers: { Authorization: `Bearer ${token}` }
 });
-const changeImageRequest = (id, token, formData) => axios.put(`${POSTS_UPLOAD}${id}`,
+const changeImageRequest = (id, token, formData) => API.put(`posts/upload/${id}`,
 formData,
 {
     headers: { 
@@ -51,7 +52,7 @@ formData,
         "Content-Type": "multipart/form-data",
     },           
 });
-const updatePostRequest = (token, id, title, fullText, description) => axios.patch(`${POSTS}${id}`,
+const updatePostRequest = (token, id, title, fullText, description) => API.patch(`posts/${id}`,
 {
     title,
     fullText,

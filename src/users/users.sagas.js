@@ -1,6 +1,5 @@
 import {call, put, takeLatest} from 'redux-saga/effects';
-import axios from 'axios';
-import {USERS, USERS_UPLOAD, AUTH_USER} from "../app/API";
+import API from "../app/API";
 import { 
     FETCHUSERS, 
     USERS_ERROR, 
@@ -19,22 +18,22 @@ import {
 } from './users.actiontypes';
 import { LOGOUT } from '../auth/auth.actiontypes';
 
-const fetchUserRequest= () => axios.get(USERS);
-const findSelectedUserRequest = userId => axios.get(`${USERS}${userId}`);
-const getUserByTokenRequest = token => axios.get(AUTH_USER,{
+const fetchUserRequest= () => API.get('users');
+const findSelectedUserRequest = userId => API.get(`users/${userId}`);
+const getUserByTokenRequest = token => API.get('auth/user/',{
     headers: { Authorization: `Bearer ${token}` }
 });
-const deleteUserRequest = (id, token) => axios.delete(`${USERS}${id}`,{
+const deleteUserRequest = (id, token) => API.delete(`users/${id}`,{
     headers: { Authorization: `Bearer ${token}` }
 });
-const changeNameRequest = (id, token, name) => axios.patch(`${USERS}${id}`,
+const changeNameRequest = (id, token, name) => API.patch(`users/${id}`,
 {
     "name": name
 },
 {
     headers: { Authorization: `Bearer ${token}` },           
 });
-const changeAvatarRequest = (id, token, formData) => axios.put(`${USERS_UPLOAD}${id}`,
+const changeAvatarRequest = (id, token, formData) => API.put(`users/upload/${id}`,
 formData,
 {
     headers: { 
